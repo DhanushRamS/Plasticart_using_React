@@ -1,6 +1,6 @@
 // Popup.js
 import React from "react";
-import "./style.css";
+// import "./style.css";
 
 const Popup = ({ isOpen, onClose, children }) => {
   return isOpen ? (

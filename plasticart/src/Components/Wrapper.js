@@ -1,28 +1,35 @@
-// Wrapper.js
-import React, { useState } from "react";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
-import "./style.css"; // Assuming your wrapper styles are in this file
+//Wrapper.js
 
-const Wrapper = ({ isOpen, onClose }) => {
-  const [isActive, setIsActive] = useState(isOpen);
+import React from "react";
+// import "./style.css";
 
-  // Function to toggle between login and register forms
-  const toggleLoginForm = () => {
-    setIsActive(!isActive);
+const Wrapper = ({ children, isOpen, onClose, setIsWrapperOpen }) => {
+  const handleWrapperClick = (event) => {
+    // Prevent closing if a click occurs inside the form
+    event.stopPropagation();
+  };
+  const handleCloseWrapper = () => {
+    onClose(); // Call onClose when the close icon is clicked
+    setIsWrapperOpen(false);
   };
 
   return (
-    <div className={`wrapper ${isActive ? "active" : ""}`} onClick={onClose}>
-      {isActive ? (
-        <div className="form-box login">
-          <LoginForm toggleLoginForm={toggleLoginForm} />
-        </div>
-      ) : (
-        <div className="form-box register">
-          <RegisterForm toggleLoginForm={toggleLoginForm} />
-        </div>
-      )}
+    <div
+      className={`wrapper ${isOpen ? "active-popup" : ""}`}
+      onClick={(event) => {
+        // Check if the click occurred outside the form box
+        if (!event.target.closest(".form-box")) {
+          onClose();
+          setIsWrapperOpen(false);
+        }
+      }}
+    >
+      <div className="form-box" onClick={handleWrapperClick}>
+        <span className="icon-close" onClick={handleCloseWrapper}>
+          &times;
+        </span>
+        {children}
+      </div>
     </div>
   );
 };

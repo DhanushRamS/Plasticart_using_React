@@ -1,0 +1,85 @@
+/* Scanner page css */
+
+.scanner-container * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.scanner-container html,
+.scanner-container body {
+    background-color: rgb(16, 16, 16);
+    font-family: 'Segoe UI Light';
+    color: #f1f1f1;
+}
+
+.scanner-container .cameravideo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.scanner-container video {
+    margin: 10px 0px;
+}
+
+.scanner-container .cameravideo button {
+    background: url(camera-snap-black.svg) red;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    outline: none;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.scanner-container .cameravideo button:hover {
+    background: url(camera-snap-black.svg) rgb(255, 0, 0, 0.727);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+
+.scanner-container .camera-snapshot {
+    background-color: rgb(255, 255, 255, .021);
+    height: 200px;
+    margin: auto;
+    width: 95%;
+    display: flex;
+    overflow-x: scroll;
+    padding: 3px 1.5px;
+}
+
+/* Width */
+.scanner-container .camera-snapshot::-webkit-scrollbar {
+    height: 5px;
+}
+
+/* Track */
+.scanner-container .camera-snapshot::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    background: transparent;
+}
+
+/* Handle */
+.scanner-container .camera-snapshot::-webkit-scrollbar-thumb {
+    background: rgb(187, 187, 187);
+    border-radius: 50px;
+}
+
+.scanner-container .scrollablecontainer {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.scanner-container .capturedimage {
+    width: 280px; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+    margin-right: 10px; /* Adjust the margin between images as needed */
+}

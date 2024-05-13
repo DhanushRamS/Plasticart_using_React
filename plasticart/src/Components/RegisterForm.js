@@ -1,7 +1,8 @@
 // RegisterForm.js
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
-import "./style.css"; // Assuming your form styles are in this file
+import IonIcon from "./Icon";
+// import "./style.css";
 
 const RegisterForm = ({ toggleLoginForm }) => {
   const [username, setUsername] = useState("");
@@ -9,6 +10,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
   const [password, setPassword] = useState("");
   const [termsConditions, setTermsConditions] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
+  const [registrationSuccess, setRegistrationSuccess] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(false);
 
   const handleRegisterSubmit = async (event) => {
@@ -22,8 +24,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
 
     try {
       // Send registration request
-      // Replace 'YOUR_REGISTER_API_ENDPOINT' with your actual register API endpoint
-      const response = await fetch("YOUR_REGISTER_API_ENDPOINT", {
+      const response = await fetch("http://localhost:1337/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,6 +34,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
 
       if (response.ok) {
         // Handle successful registration (e.g., show success message or redirect)
+        setRegistrationSuccess("Registration successful");
         console.log("Registration successful");
       } else {
         setRegistrationError("Registration failed. Please try again.");
@@ -52,7 +54,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
             {/* Registration form inputs */}
             <div className="input-box">
               <span className="icon">
-                <ion-icon name="person"></ion-icon>
+                <IonIcon icon="person"></IonIcon>
               </span>
               <input
                 id="uname"
@@ -65,7 +67,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
             </div>
             <div className="input-box">
               <span className="icon">
-                <ion-icon name="mail-sharp"></ion-icon>
+                <IonIcon icon="mail-sharp"></IonIcon>
               </span>
               <input
                 id="email"
@@ -78,7 +80,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
             </div>
             <div className="input-box">
               <span className="icon">
-                <ion-icon name="lock-closed-sharp"></ion-icon>
+                <IonIcon icon="lock-closed-sharp"></IonIcon>
               </span>
               <input
                 id="passwd"
@@ -102,11 +104,14 @@ const RegisterForm = ({ toggleLoginForm }) => {
             </button>
           </form>
           {registrationError && <p className="error">{registrationError}</p>}
+          {registrationSuccess && (
+            <p className="error">{registrationSuccess}</p>
+          )}
           {!showLoginForm && (
             <div className="login-register">
               <p>
                 Already have an account?
-                <a href="#" onClick={() => setShowLoginForm(true)}>
+                <a href="#" onClick={() => toggleLoginForm()}>
                   Login
                 </a>
               </p>

@@ -4,8 +4,8 @@ import "./style.css";
 const AboutUs = () => {
   return (
     <div className="abtus" id="about">
+      <h2>About Us</h2>
       <p>
-        <h2>About Us</h2>
         Welcome to <strong>Plasticart</strong>, where we are dedicated to making
         a tangible impact on the environment by combating plastic pollution and
         promoting safe recycling practices. Our journey began with a shared
