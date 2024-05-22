@@ -23,7 +23,7 @@ const LoginForm = ({ onClose }) => {
 
     try {
       // Send Login request
-      const response = await fetch("http://localhost:1337/api/login", {
+      const response = await fetch("http://localhost:5000/api/user/login", {
         // Adjust the port and endpoint as needed
         method: "POST",
         headers: {
@@ -31,11 +31,18 @@ const LoginForm = ({ onClose }) => {
         },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
 
-      if (data.user) {
-        // Handle successful Login
-        navigate("/scanner");
+      const data = await response.json();
+      console.log("Response Data:", data); // Debugging line to check response data
+
+      if (response.ok && data.token) {
+        // Store the token in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("username", data.username);
+
+        // Navigate to the scanner page
+        navigate("/scanner", { state: data });
         console.log("Login successful");
       } else {
         setError("Invalid email or password."); // Incorrect credentials
@@ -48,7 +55,6 @@ const LoginForm = ({ onClose }) => {
 
   return (
     <Wrapper isOpen={true} onClose={onClose}>
-      {" "}
       {/* Use Wrapper component */}
       {!showRegisterForm ? (
         <div>

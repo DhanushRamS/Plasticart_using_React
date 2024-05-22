@@ -30,7 +30,11 @@ def upload_image():
             os.remove(temp_path)
 
             print("Got image", prediction)
-            return jsonify(prediction)
+            return jsonify({
+                "prediction": prediction,
+                "lat": request.form.get('lat', '0'),
+                "long": request.form.get('long', '0')
+            })
         else:
             return "No file uploaded."
     except Exception as e:
@@ -38,4 +42,4 @@ def upload_image():
         return f"Error: {str(e)}"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=4000)

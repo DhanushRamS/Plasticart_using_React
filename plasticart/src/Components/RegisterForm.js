@@ -1,4 +1,3 @@
-// RegisterForm.js
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import IonIcon from "./Icon";
@@ -24,7 +23,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
 
     try {
       // Send registration request
-      const response = await fetch("http://localhost:1337/api/register", {
+      const response = await fetch("http://localhost:5000/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

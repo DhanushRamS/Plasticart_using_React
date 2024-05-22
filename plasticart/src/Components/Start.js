@@ -7,11 +7,11 @@ const Start = () => {
   };
 
   const handleLoginVendor = () => {
-    window.location.href = "vendor_index.html";
+    window.location.href = "http://localhost:3000/vendor-auth";
   };
 
   const handleLoginAdmin = () => {
-    window.location.href = "admin_index.html";
+    window.location.href = "http://localhost:3000/admin-auth";
   };
 
   return (
