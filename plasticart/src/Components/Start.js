@@ -15,7 +15,7 @@ const Start = () => {
   };
 
   return (
-    <div className={styles.startdiv}>
+    <div className="h-screen flex flex-col justify-center items-center">
       <div className={styles.wel}>
         <h1>Welcome to PlastiCart</h1>
       </div>

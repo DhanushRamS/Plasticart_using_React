@@ -94,7 +94,6 @@ function Scanner() {
       const docRef = doc(appFirestore, "USER", appAuth.currentUser?.email);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
         setUserData(docSnap.data());
       } else {
         console.log("No such document!");
@@ -218,7 +217,7 @@ function Scanner() {
           date: new Date().toISOString(),
           description: description,
           quantity: quantity,
-          email: state.email,
+          email: appAuth.currentUser?.email,
         };
 
         setCapturedImages((prevImages) => [...prevImages, capturedData]);
@@ -349,7 +348,7 @@ function Scanner() {
       }}
     >
       <header className={styles.header}>
-        <div className="w-full hidden lg:block">
+        <div className="w-full hidden lg:flex justify-between items-center">
           <div className={styles.points}>
             <i id="icon" className="fas fa-coins coin-icon"></i>
             <span className="block"> Current Points:</span>{" "}
@@ -390,9 +389,36 @@ function Scanner() {
               <span className="block"> Current Points:</span>{" "}
               <span>{userData == null ? 0 : userData.points}</span>
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                setIsExpanded(!isExpanded);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5"
+                />
+              </svg>
+            </button>
           </div>
 
-          <div className="flex flex-col items-center justify-center space-y-4">
+          <div
+            className={
+              isExpanded
+                ? "flex flex-col items-center justify-center space-y-4 transition-[height] delay-150 duration-300 h-full ease-in-out"
+                : "hidden"
+            }
+          >
             <button
               type="button"
               onClick={() => {
@@ -422,7 +448,7 @@ function Scanner() {
           </div>
         </div>
       </header>
-      <div className={"flex flex-wrap gap-2 w-full"}>
+      <div className={"flex flex-wrap gap-2 w-full mt-6 lg:mt-12"}>
         <div
           className={`flex flex-col justify-start items-center mt-12 w-full lg:w-1/2`}
         >
