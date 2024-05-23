@@ -63,4 +63,6 @@ h2 {
   cursor: pointer;
   color: blue;
   text-decoration: underline;
+  font-size: small;
+  
 }

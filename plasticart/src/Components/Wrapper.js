@@ -38,7 +38,7 @@
 
 import React from "react";
 
-const Wrapper = ({ children, isOpen, onClose, setIsWrapperOpen }) => {
+const Wrapper = ({ children, isOpen, onClose }) => {
   const handleWrapperClick = (event) => {
     // Prevent closing if a click occurs inside the form
     event.stopPropagation();
@@ -46,7 +46,6 @@ const Wrapper = ({ children, isOpen, onClose, setIsWrapperOpen }) => {
 
   const handleCloseWrapper = () => {
     onClose(); // Call onClose when the close icon is clicked
-    setIsWrapperOpen(false);
   };
 
   return (
@@ -56,7 +55,6 @@ const Wrapper = ({ children, isOpen, onClose, setIsWrapperOpen }) => {
         // Check if the click occurred outside the form box
         if (!event.target.closest(".form-box")) {
           onClose();
-          setIsWrapperOpen(false);
         }
       }}
     >

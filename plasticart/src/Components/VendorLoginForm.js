@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styles from "./VendorAuth.module.css";
 import { useNavigate } from "react-router-dom";
+import { appAuth, appFirestore } from "../config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const VendorLoginForm = ({ toggleForm, onLogin }) => {
   const [email, setEmail] = useState("");
@@ -16,28 +19,54 @@ const VendorLoginForm = ({ toggleForm, onLogin }) => {
       (position) => {
         const { latitude, longitude } = position.coords;
         console.log(latitude, longitude);
-        fetch("http://localhost:5000/api/vendor/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password, latitude, longitude }),
-        })
-          .then(async (response) => {
-            const data = await response.json();
-            if (response.ok) {
-              setSuccessMessage("Login successful!");
-              setErrorMessage("");
-              onLogin(email); // Pass email to parent component
-              navigate("/dashboard", { state: data });
-            } else {
-              setErrorMessage("Something went wrong. Please try again.");
-            }
-            console.log(response);
+        signInWithEmailAndPassword(appAuth, email, password)
+          .then(async (user) => {
+            console.log(user);
+            setSuccessMessage("Login successful!");
+            setErrorMessage("");
+            onLogin(email);
+            await setDoc(
+              doc(appFirestore, "VENDOR", email),
+              {
+                latitude: latitude,
+                longitude: longitude,
+              },
+              { merge: true }
+            );
+            navigate("/dashboard", {
+              state: {
+                name: user.displayName,
+                email: email,
+                status: "ok",
+                token: user.uid,
+              },
+            });
           })
-          .catch((err) => {
-            console.log(err);
+          .catch((error) => {
+            setErrorMessage("Unable to sign in. Please try again later...");
           });
+        // fetch("http://localhost:5000/api/vendor/login", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ email, password, latitude, longitude }),
+        // })
+        //   .then(async (response) => {
+        //     const data = await response.json();
+        //     if (response.ok) {
+        //       setSuccessMessage("Login successful!");
+        //       setErrorMessage("");
+        //       onLogin(email); // Pass email to parent component
+        //       navigate("/dashboard", { state: data });
+        //     } else {
+        //       setErrorMessage("Something went wrong. Please try again.");
+        //     }
+        //     console.log(response);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
       },
       (error) => {
         console.error("Error getting geolocation:", error);

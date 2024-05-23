@@ -3,7 +3,7 @@ import React from "react";
 import "./style.css";
 const AboutUs = () => {
   return (
-    <div className="abtus" id="about">
+    <div className="abtus !hidden !lg:block" id="about">
       <h2>About Us</h2>
       <p>
         Welcome to <strong>Plasticart</strong>, where we are dedicated to making

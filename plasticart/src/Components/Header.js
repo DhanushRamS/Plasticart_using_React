@@ -16,28 +16,26 @@ const Header = () => {
 
   return (
     <>
-      <header>
-        <h2 className="logo">PlastiCart</h2>
-        <nav>
-          <ul className="navigation">
-            <li>
+      <header className="flex justify-between items-center w-full !p-3">
+        <h2 className="font-bold text-3xl">PlastiCart</h2>
+        <nav className="">
+          <ul className="">
+            <li className="hidden lg:block">
               <a href="#">Home</a>
             </li>
-            <li>
+            <li className="hidden lg:block">
               <a href="#about">About</a>
             </li>
-            <li>
+            <li className="hidden lg:block">
               <a href="#">Contact Us</a>
             </li>
             <li>
-              <button className="btnLogin-popup" onClick={openLoginForm}>
+              <button
+                className="bg-blue-500 p-3 text-white hover:bg-blue-700"
+                onClick={openLoginForm}
+              >
                 Login
               </button>
-            </li>
-            <li className="hamburger">
-              <a href="#">
-                <div className="bar"></div>
-              </a>
             </li>
           </ul>
         </nav>

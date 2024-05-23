@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./AdminAuth.module.css";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { appAuth } from "../config";
 
 const AdminLoginForm = ({ toggleForm, onLogin }) => {
   const [email, setEmail] = useState("");
@@ -18,22 +20,20 @@ const AdminLoginForm = ({ toggleForm, onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setSuccessMessage("Login successful!");
-        setErrorMessage("");
-        handleLoginSuccess(email, data.token);
-      } else {
-        setErrorMessage(data.error);
-      }
+      signInWithEmailAndPassword(appAuth, email, password)
+        .then(async (user) => {
+          console.log(user);
+          setSuccessMessage("Login successful!");
+          setErrorMessage("");
+          navigate("/admin-dashboard", {
+            state: {
+              email: email,
+            },
+          });
+        })
+        .catch((error) => {
+          setErrorMessage("Unable to sign in. Please try again later...");
+        });
     } catch (error) {
       console.error("Login failed:", error);
       setErrorMessage("Login failed. Please try again.");

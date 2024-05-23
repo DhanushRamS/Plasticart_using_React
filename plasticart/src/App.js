@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home";
+import History from "./History"
 import Scanner from "./Components/Scanner";
 import Start from "./Components/Start";
 import VendorAuth from "./Components/VendorAuth";
@@ -66,6 +67,7 @@ const App = () => {
           }
         />
         <Route path="/scanner" element={<Scanner />} />
+        <Route path="/history" element={<History />} />
         <Route
           path="/vendor-auth"
           element={<VendorAuth onLogin={handleLogin} />}

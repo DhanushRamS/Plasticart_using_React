@@ -51,7 +51,7 @@
   width: 37px;
   height: 37px;
   display: flex;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: rgba(115, 115, 115, 0.7);
   justify-content: center;
   align-items: center;

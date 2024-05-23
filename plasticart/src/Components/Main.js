@@ -15,14 +15,14 @@ import sun_rays from "./img/sun_rays.png";
 
 const MainContent = () => {
   return (
-    <main>
+    <main className="h-screen relative w-full">
       <div className="vignette"></div>
-      <img alt="images-index" src={background} className="parallax bg-img" />
-      <img alt="images-index" src={fog_7} className="parallax fog-7" />
-      <img alt="images-index" src={fog_6} className="parallax fog-6" />
-      <img alt="images-index" src={fog_5} className="parallax fog-5" />
+      <img alt="images-index" src={background} className="h-screen absolute w-screen" />
+      <img alt="images-index" src={fog_7} className="" />
+      <img alt="images-index" src={fog_6} className="" />
+      <img alt="images-index" src={fog_5} className="" />
       <div className="text parallax">
-        <h2>Plastic</h2>
+        <h2>Environment</h2>
         <h1>Pollution</h1>
       </div>
       <img alt="images-index" src={fog_4} className="parallax fog-4" />
@@ -34,5 +34,4 @@ const MainContent = () => {
     </main>
   );
 };
-
 export default MainContent;

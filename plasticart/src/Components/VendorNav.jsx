@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Vendor.module.css";
+import { signOut } from "firebase/auth";
+import { appAuth } from "../config";
 
 const VendorNav = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear authentication tokens or any other logout operations
-    localStorage.removeItem("token"); // Adjust this based on your auth token key
-    navigate("/vendor-auth");
+  const handleLogout = async () => {
+    await signOut(appAuth).then(() => {
+      navigate("/vendor-auth");
+    });
   };
 
   return (
@@ -34,7 +36,10 @@ const VendorNav = () => {
             {openDropdown && (
               <ul className={styles.dropdownMenu}>
                 <li>
-                  <button onClick={handleLogout} className={styles.logoutButton}>
+                  <button
+                    onClick={handleLogout}
+                    className={styles.logoutButton}
+                  >
                     Logout
                   </button>
                 </li>

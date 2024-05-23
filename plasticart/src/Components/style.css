@@ -1,5 +1,10 @@
 /* Main CSS for ALL */
 
+ @tailwind base;
+ @tailwind components;
+ @tailwind utilities;
+
+ 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;800&display=swap");
 
 *,
@@ -364,10 +369,11 @@ main {
 
 .wrapper.active-popup {
     transform: scale(1);
+    height: 550px;
 }
 
 .wrapper.active {
-    height: 520px;
+    height: 620px;
 }
 
 .wrapper .form {

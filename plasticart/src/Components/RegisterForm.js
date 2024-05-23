@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import IonIcon from "./Icon";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { appAuth, appFirestore } from "../config";
+import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 // import "./style.css";
 
 const RegisterForm = ({ toggleLoginForm }) => {
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [termsConditions, setTermsConditions] = useState(false);
@@ -14,40 +19,37 @@ const RegisterForm = ({ toggleLoginForm }) => {
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
-
-    // Validate form data
-    if (!username || !email || !password) {
-      setRegistrationError("Please fill in all fields.");
-      return;
-    }
-
-    try {
-      // Send registration request
-      const response = await fetch("http://localhost:5000/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      if (response.ok) {
-        // Handle successful registration (e.g., show success message or redirect)
-        setRegistrationSuccess("Registration successful");
-        console.log("Registration successful");
-      } else {
-        setRegistrationError("Registration failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error sending form data:", error);
-      setRegistrationError("An error occurred. Please try again later.");
+    if (termsConditions) {
+      createUserWithEmailAndPassword(appAuth, email, password)
+        .then(async (user) => {
+          await setDoc(
+            doc(appFirestore, "USER", email),
+            {
+              name: username,
+              email: email,
+              points: 0,
+            },
+            { merge: true }
+          );
+          navigate("/scanner", {
+            state: {
+              name: user.name,
+              email: user.email,
+            },
+          });
+        })
+        .catch((error) => {
+          setRegistrationError("Unable to sign in... Try again later");
+        });
+    } else {
+      setRegistrationError("You have to agree to terms and conditions");
     }
   };
 
   return (
-    <div className="register-form">
+    <div>
       {!showLoginForm ? (
-        <div>
+        <div className="">
           <h2>Registration</h2>
           <form id="registrationForm" onSubmit={handleRegisterSubmit}>
             {/* Registration form inputs */}
@@ -93,8 +95,9 @@ const RegisterForm = ({ toggleLoginForm }) => {
             <label>
               <input
                 type="checkbox"
-                checked={termsConditions}
-                onChange={(e) => setTermsConditions(e.target.checked)}
+                value={termsConditions}
+                required
+                onChange={(e) => setTermsConditions(e.target.value)}
               />{" "}
               I agree to the terms & conditions
             </label>

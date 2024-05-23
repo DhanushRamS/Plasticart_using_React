@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import styles from "./AdminAuth.module.css";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { appAuth, appFirestore } from "../config";
+import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const AdminRegisterForm = ({ toggleForm }) => {
   const [username, setUsername] = useState("");
@@ -7,25 +11,30 @@ const AdminRegisterForm = ({ toggleForm }) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/admin/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      if (response.ok) {
-        setSuccessMessage("Registration successful!");
-        setErrorMessage("");
-      } else {
-        const data = await response.json();
-        setErrorMessage(data.error);
-      }
+      createUserWithEmailAndPassword(appAuth, email, password)
+        .then(async (user) => {
+          await setDoc(
+            doc(appFirestore, "ADMIN", email),
+            {
+              name: username,
+              email: email,
+            },
+            { merge: true }
+          );
+          navigate("/admin-dashboard", {
+            state: {
+              name: user.name,
+              email: user.email,
+            },
+          });
+        })
+        .catch((error) => {
+          setErrorMessage("Unable to sign in... Try again later");
+        });
     } catch (error) {
       console.error("Error submitting form data:", error);
       setErrorMessage("An error occurred. Please try again later.");
