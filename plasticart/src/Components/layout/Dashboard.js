@@ -36,7 +36,10 @@ const Dashboard = ({ email }) => {
           const pickup = { id: doc.id, data: doc.data() };
           pick_ups.push(pickup);
         }
-        if (doc.data().status === "complete") {
+        if (
+          doc.data().status === "complete" &&
+          doc.data().vendor === appAuth.currentUser.email
+        ) {
           const complete = { id: doc.id, data: doc.data() };
           completed.push(complete);
         }
