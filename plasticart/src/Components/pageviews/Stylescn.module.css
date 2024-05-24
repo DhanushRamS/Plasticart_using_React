@@ -10,7 +10,7 @@
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-      url('./img/scannerimg.jpg') no-repeat center center fixed;
+      url('../img/scannerimg.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
     -webkit-font-smoothing: antialiased;

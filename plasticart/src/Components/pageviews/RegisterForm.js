@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import IonIcon from "./Icon";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { appAuth, appFirestore } from "../config";
+import { appAuth, appFirestore } from "../../config";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 // import "./style.css";

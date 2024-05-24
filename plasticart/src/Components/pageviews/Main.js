@@ -1,16 +1,16 @@
 // Main Content component
 import React from "react";
 import { IconContext } from "react-icons";
-import fog_1 from "./img/fog_1.png";
-import fog_2 from "./img/fog_2.png";
-import fog_3 from "./img/fog_3.png";
-import fog_4 from "./img/fog_4.png";
-import fog_5 from "./img/fog_5.png";
-import fog_6 from "./img/fog_6.png";
-import fog_7 from "./img/fog_7.png";
-import black_shadow from "./img/black_shadow.png";
-import background from "./img/background.png";
-import sun_rays from "./img/sun_rays.png";
+import fog_1 from "../img/fog_1.png";
+import fog_2 from "../img/fog_2.png";
+import fog_3 from "../img/fog_3.png";
+import fog_4 from "../img/fog_4.png";
+import fog_5 from "../img/fog_5.png";
+import fog_6 from "../img/fog_6.png";
+import fog_7 from "../img/fog_7.png";
+import black_shadow from "../img/black_shadow.png";
+import background from "../img/background.png";
+import sun_rays from "../img/sun_rays.png";
 // import "./style.css";
 
 const MainContent = () => {

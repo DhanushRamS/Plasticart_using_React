@@ -1,57 +1,59 @@
 import React, { useState } from "react";
-import styles from "./VendorAuth.module.css";
+import styles from "./AdminAuth.module.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { appAuth, appFirestore } from "../config";
+import { appAuth, appFirestore } from "../../config";
 import { doc, setDoc } from "firebase/firestore";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-
-const VendorRegisterForm = ({ toggleForm }) => {
-  const navigate = useNavigate();
+const AdminRegisterForm = ({ toggleForm }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [termsConditions, setTermsConditions] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(appAuth, email, password)
-      .then(async (user) => {
-        await setDoc(
-          doc(appFirestore, "VENDOR", email),
-          {
-            name: username,
-            email: email,
-          },
-          { merge: true }
-        );
-        navigate("/dashboard", {
-          state: {
-            name: user.name,
-            email: user.email,
-          },
+    try {
+      createUserWithEmailAndPassword(appAuth, email, password)
+        .then(async (user) => {
+          await setDoc(
+            doc(appFirestore, "ADMIN", email),
+            {
+              name: username,
+              email: email,
+            },
+            { merge: true }
+          );
+          navigate("/admin-dashboard", {
+            state: {
+              name: user.name,
+              email: user.email,
+            },
+          });
+        })
+        .catch((error) => {
+          setErrorMessage("Unable to sign in... Try again later");
         });
-      })
-      .catch((error) => {
-        setErrorMessage("Unable to sign in... Try again later");
-      });
+    } catch (error) {
+      console.error("Error submitting form data:", error);
+      setErrorMessage("An error occurred. Please try again later.");
+    }
   };
 
   return (
-    <div className={styles.vendorAuthBox}>
-      <h2>Vendor Registration</h2>
+    <div className={styles.adminAuthBox}>
+      <h2>Admin Registration</h2>
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <label htmlFor="name" className={styles.forlabel}>
-            Name
+          <label htmlFor="username" className={styles.forlabel}>
+            Username
           </label>
           <input
             className={styles.forinput}
             type="text"
-            id="name"
-            name="name"
+            id="username"
+            name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -98,4 +100,4 @@ const VendorRegisterForm = ({ toggleForm }) => {
   );
 };
 
-export default VendorRegisterForm;
+export default AdminRegisterForm;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import VendorNav from "../VendorNav";
-import "../dashboard.css";
+import VendorNav from "../pageviews/VendorNav";
+import "../pageviews/dashboard.css";
 import { useLocation } from "react-router-dom";
 import {
   collection,

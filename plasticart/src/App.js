@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Components/Home";
-import History from "./History"
-import Scanner from "./Components/Scanner";
-import Start from "./Components/Start";
-import VendorAuth from "./Components/VendorAuth";
+import Home from "./Components/pageviews/Home";
+import History from "./History";
+import Scanner from "./Components/pageviews/Scanner";
+import Start from "./Components/pageviews/Start";
+import VendorAuth from "./Components/pageviews/VendorAuth";
 import Dashboard from "./Components/layout/Dashboard";
-import Redeem from "./Components/RedeemSection";
-import AdminAuth from "./Components/AdminAuth";
-import AdminDashboard from "./Components/AdminDashboard";
+import Redeem from "./Components/pageviews/RedeemSection";
+import AdminAuth from "./Components/pageviews/AdminAuth";
+import AdminDashboard from "./Components/pageviews/AdminDashboard";
 import "./style.css";
 
 const App = () => {

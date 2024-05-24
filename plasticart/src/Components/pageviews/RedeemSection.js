@@ -1,6 +1,6 @@
 // import "./App.css";
-import Nav from "./Nav/Nav";
-import Products from "./Products/Products";
+import Nav from "../Nav/Nav";
+import Products from "../Products/Products";
 import { Route, Routes } from "react-router-dom";
 function RedeemSection() {
   return (

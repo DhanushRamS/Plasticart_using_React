@@ -9,7 +9,7 @@ import {
   query,
   setDoc,
 } from "firebase/firestore";
-import { appAuth, appFirestore } from "../config";
+import { appAuth, appFirestore } from "../../config";
 import venStyles from "./Vendor.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";

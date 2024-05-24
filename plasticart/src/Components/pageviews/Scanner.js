@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Stylescn.module.css";
-import backgroundImage from "./img/scannerimg.jpg";
-import { appAuth, appFirestore, appStorage } from "../config";
+import backgroundImage from "../img/scannerimg.jpg";
+import { appAuth, appFirestore, appStorage } from "../../config";
 import {
   addDoc,
   collection,

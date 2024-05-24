@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Vendor.module.css";
 import { signOut } from "firebase/auth";
-import { appAuth } from "../config";
+import { appAuth } from "../../config";
 
 const VendorNav = () => {
   const [openDropdown, setOpenDropdown] = useState(false);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./AdminAuth.module.css";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { appAuth } from "../config";
+import { appAuth } from "../../config";
 
 const AdminLoginForm = ({ toggleForm, onLogin }) => {
   const [email, setEmail] = useState("");

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Components/Stylescn.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { appAuth, appFirestore } from "./config";
