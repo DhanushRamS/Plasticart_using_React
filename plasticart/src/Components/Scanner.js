@@ -295,6 +295,7 @@ function Scanner() {
                   date: new Date().toISOString(),
                   description: description,
                   quantity: quantity,
+                  iSeen: false,
                   vendor: data.vendor,
                   email: appAuth.currentUser?.email,
                   status: "pending",

@@ -21,7 +21,40 @@ const AdminDashboard = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   // const [pointsAdded, setPointsAdded] = useState(false);
   const navigate = useNavigate();
-  const [totalPointsValue, setTotalPointsValue] = useState(0);
+  // const [totalPointsValue, setTotalPointsValue] = useState(0);
+
+  const [totalPointsValues, setTotalPointsValues] = useState({});
+
+  const handleInputChange = (id, value) => {
+    setTotalPointsValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
+    }));
+  };
+
+  const handleAssignPoints = async (id, email, docID) => {
+    const totalPointsValue = totalPointsValues[id];
+    if (totalPointsValue === undefined) {
+      // Handle the case where the input value is not set.
+      return;
+    }
+
+    await setDoc(
+      doc(appFirestore, "USER", email),
+      {
+        points: increment(totalPointsValue),
+      },
+      { merge: true }
+    );
+    await setDoc(
+      doc(appFirestore, "USER", email, "PICKUP", docID),
+      {
+        pointsAssigned: true,
+      },
+      { merge: true }
+    );
+    await fetchCompletedPickups();
+  };
   const handleLogout = async () => {
     await signOut(appAuth).then(() => {
       navigate("/admin-auth");
@@ -47,23 +80,6 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchCompletedPickups();
   }, []);
-
-  const handleAssignPoints = async (userId, points) => {
-    try {
-      await axios.post(
-        `http://localhost:5000/admin/assign-points/${userId}`,
-        { points },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      // Optionally, update the UI or provide feedback to the user
-    } catch (error) {
-      console.error("Error assigning points:", error);
-    }
-  };
 
   return (
     <div className="dashboard container">
@@ -138,43 +154,25 @@ const AdminDashboard = () => {
                     </div>
                     {pickup.data.pointsAssigned ? (
                       <>
-                        <span className="!text-sm !font-bold !text-green-800">Points Successfully Assigned</span>
+                        <span className="!text-sm !font-bold !text-green-800">
+                          Points Successfully Assigned
+                        </span>
                       </>
                     ) : (
                       <div className="w-full lg:w-1/3 flex justify-end items-center space-x-3 mt-4">
                         <input
                           type="number"
                           id={i}
-                          value={totalPointsValue}
+                          value={totalPointsValues[i] || 0}
                           step={5}
                           min={0}
-                          onChange={(e) => setTotalPointsValue(e.target.value)}
+                          onChange={(e) => handleInputChange(i, e.target.value)}
                           className="w-1/3 !bg-gray-100 !border-blue-200 !text-black"
                         />
                         <button
-                          onClick={async () => {
-                            await setDoc(
-                              doc(appFirestore, "USER", pickup.data.email),
-                              {
-                                points: increment(totalPointsValue),
-                              },
-                              { merge: true }
-                            );
-                            await setDoc(
-                              doc(
-                                appFirestore,
-                                "USER",
-                                pickup.data.email,
-                                "PICKUP",
-                                pickup.id
-                              ),
-                              {
-                                pointsAssigned: true,
-                              },
-                              { merge: true }
-                            );
-                            await fetchCompletedPickups();
-                          }}
+                          onClick={() =>
+                            handleAssignPoints(i, pickup.data.email, pickup.id)
+                          }
                           className="text-base font-light bg-gray-500 hover:bg-gray-800 p-3 text-white w-1/2"
                         >
                           Assign Point
