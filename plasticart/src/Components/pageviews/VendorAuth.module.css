@@ -35,9 +35,10 @@
   .forinput {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid #000 !important;
     border-radius: 4px;
     box-sizing: border-box;
+    color: #000 !important;
   }
   .tands{
     display: flex;

@@ -4,7 +4,7 @@
  @tailwind components;
  @tailwind utilities;
 
- 
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;800&display=swap");
 
 *,
@@ -23,7 +23,7 @@ body {
     background-color: #0b372dbb;
 }
 
-header {
+.header {
     position: fixed;
     top: 0;
     left: 0;
@@ -35,7 +35,7 @@ header {
     z-index: 99;
 }
 
-header ul {
+.header ul {
     display: flex;
     list-style: none;
     align-items: center;
@@ -343,13 +343,13 @@ main {
 
 .wrapper {
     position: fixed;
-    top: 50%;
+    top: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
     max-width: 90vw;
-    height: 440px;
-    max-height: 90vh;
+    height: 500px;
+    max-height: 500px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
@@ -369,7 +369,7 @@ main {
 
 .wrapper.active-popup {
     transform: scale(1);
-    height: 550px;
+    height: 500px;
 }
 
 .wrapper.active {
@@ -378,13 +378,13 @@ main {
 
 .wrapper .form {
     width: 100%;
-    padding: 40px;
+    padding: 20px;
 }
 
 
 .wrapper .form-box {
     width: 100%;
-    padding: 40px;
+    padding: 20px;
     transition: transform 0.18s ease;
 }
 

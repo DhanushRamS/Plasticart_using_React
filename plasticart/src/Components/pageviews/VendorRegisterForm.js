@@ -5,7 +5,6 @@ import { appAuth, appFirestore } from "../../config";
 import { doc, setDoc } from "firebase/firestore";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
 const VendorRegisterForm = ({ toggleForm }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -48,7 +47,7 @@ const VendorRegisterForm = ({ toggleForm }) => {
             Name
           </label>
           <input
-            className={styles.forinput}
+            className={`${styles.forinput} !bg-white`}
             type="text"
             id="name"
             name="name"

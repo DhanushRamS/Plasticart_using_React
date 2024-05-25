@@ -49,7 +49,7 @@ const RegisterForm = ({ toggleLoginForm }) => {
   return (
     <div>
       {!showLoginForm ? (
-        <div className="">
+        <div className="py-6">
           <h2>Registration</h2>
           <form id="registrationForm" onSubmit={handleRegisterSubmit}>
             {/* Registration form inputs */}
