@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import VendorLoginForm from "./VendorLoginForm";
 import VendorRegisterForm from "./VendorRegisterForm";
-import styles from "./VendorAuth.module.css";
+import styles from "./Start.module.css";
 
-const VendorAuth = ({ onLogin }) => {
+const VendorAuth = ({ onClose, onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
 
   const toggleForm = () => {
@@ -11,12 +11,17 @@ const VendorAuth = ({ onLogin }) => {
   };
 
   return (
-    <div className={styles.vendorAuthContainer}>
-      {isLogin ? (
-        <VendorLoginForm toggleForm={toggleForm} onLogin={onLogin} />
-      ) : (
-        <VendorRegisterForm toggleForm={toggleForm} />
-      )}
+    <div className={styles.startFormContainer}>
+      <button className={styles.startCloseButton} onClick={onClose}>
+        ×
+      </button>
+      <div className={styles.startFormWrapper}>
+        {isLogin ? (
+          <VendorLoginForm toggleForm={toggleForm} onLogin={onLogin} />
+        ) : (
+          <VendorRegisterForm toggleForm={toggleForm} />
+        )}
+      </div>
     </div>
   );
 };

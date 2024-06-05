@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import styles from "./VendorAuth.module.css";
+import IonIcon from "./Icon";
 import { useNavigate } from "react-router-dom";
-import { appAuth, appFirestore } from "../../config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { appAuth, appFirestore } from "../../config";
 import { doc, setDoc } from "firebase/firestore";
+import styles from "./Start.module.css";
 
 const VendorLoginForm = ({ toggleForm, onLogin }) => {
   const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ const VendorLoginForm = ({ toggleForm, onLogin }) => {
               },
               { merge: true }
             );
-            navigate("/dashboard", {
+            navigate("/vendor-dashboard", {
               state: {
                 name: user.displayName,
                 email: email,
@@ -56,45 +57,45 @@ const VendorLoginForm = ({ toggleForm, onLogin }) => {
   };
 
   return (
-    <div className={styles.vendorAuthBox}>
+    <div className={styles.startFormWrapper}>
       <h2>Vendor Login</h2>
       <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label htmlFor="email" className={styles.forlabel}>
-            Email
-          </label>
+        <div className={styles.startInputBox}>
+          <span className={styles.startUserIcon}>
+            <IonIcon icon="mail-sharp" />
+          </span>
           <input
-            className={styles.forinput}
             type="email"
-            id="email"
-            name="email"
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
+          <label>Email</label>
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="password" className={styles.forlabel}>
-            Password
-          </label>
+        <div className={styles.startInputBox}>
+          <span className={styles.startUserIcon}>
+            <IonIcon icon="lock-closed" />
+          </span>
           <input
-            className={styles.forinput}
             type="password"
-            id="password"
-            name="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
+          <label>Password</label>
         </div>
-        <button type="submit" className={styles.authButton}>
+        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        <button type="submit" className={styles.startAuthButton}>
           Login
         </button>
       </form>
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       {successMessage && <p className={styles.success}>{successMessage}</p>}
-      <p className={styles.toggleText}>
-        Don't have an account? <span onClick={toggleForm}>Register here</span>
+      <p className={styles.startSwitchForm}>
+        Don't have an account?{" "}
+        <span onClick={toggleForm} className={styles.startSwitchLink}>
+          Register
+        </span>
       </p>
     </div>
   );

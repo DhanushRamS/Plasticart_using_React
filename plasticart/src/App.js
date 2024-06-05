@@ -9,6 +9,8 @@ import Dashboard from "./Components/layout/Dashboard";
 import Redeem from "./Components/pageviews/RedeemSection";
 import AdminAuth from "./Components/pageviews/AdminAuth";
 import AdminDashboard from "./Components/pageviews/AdminDashboard";
+import VendorScanner from "./Components/pageviews/VendorScanner";
+// import Slider from "./Components/pageviews/Slider";
 import "./style.css";
 
 const App = () => {
@@ -73,7 +75,7 @@ const App = () => {
           element={<VendorAuth onLogin={handleLogin} />}
         />
         <Route
-          path="/dashboard"
+          path="/vendor-dashboard"
           element={
             <Dashboard
               email={vendorEmail}
@@ -86,9 +88,11 @@ const App = () => {
             />
           }
         />
+        <Route path="/vendor-scanner" element={<VendorScanner />} />
         <Route path="/admin-auth" element={<AdminAuth />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/redeem" element={<Redeem />} />
+        {/* <Route path="/slider" element={<Slider />} /> */}
       </Routes>
     </BrowserRouter>
   );

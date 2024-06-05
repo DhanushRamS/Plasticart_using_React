@@ -1,21 +1,28 @@
 import React, { useState } from "react";
-import styles from "./VendorAuth.module.css";
+import IonIcon from "./Icon";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { appAuth, appFirestore } from "../../config";
 import { doc, setDoc } from "firebase/firestore";
 import { useLocation, useNavigate } from "react-router-dom";
+import styles from "./Start.module.css";
 
 const VendorRegisterForm = ({ toggleForm }) => {
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [termsConditions, setTermsConditions] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!termsConditions) {
+      setErrorMessage("You have to agree to terms and conditions");
+      return;
+    }
+
     createUserWithEmailAndPassword(appAuth, email, password)
       .then(async (user) => {
         await setDoc(
@@ -26,7 +33,7 @@ const VendorRegisterForm = ({ toggleForm }) => {
           },
           { merge: true }
         );
-        navigate("/dashboard", {
+        navigate("/vendor-dashboard", {
           state: {
             name: user.name,
             email: user.email,
@@ -39,59 +46,63 @@ const VendorRegisterForm = ({ toggleForm }) => {
   };
 
   return (
-    <div className={styles.vendorAuthBox}>
+    <div className={styles.startFormWrapper}>
       <h2>Vendor Registration</h2>
       <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label htmlFor="name" className={styles.forlabel}>
-            Name
-          </label>
+        <div className={styles.startInputBox}>
+          <span className={styles.startUserIcon}>
+            <IonIcon icon="person" />
+          </span>
           <input
-            className={`${styles.forinput} !bg-white`}
             type="text"
-            id="name"
-            name="name"
+            required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
+          <label>Username</label>
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="email" className={styles.forlabel}>
-            Email
-          </label>
+        <div className={styles.startInputBox}>
+          <span className={styles.startUserIcon}>
+            <IonIcon icon="mail-sharp" />
+          </span>
           <input
-            className={styles.forinput}
             type="email"
-            id="email"
-            name="email"
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
+          <label>Email</label>
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="password" className={styles.forlabel}>
-            Password
-          </label>
+        <div className={styles.startInputBox}>
+          <span className={styles.startUserIcon}>
+            <IonIcon icon="lock-closed-sharp" />
+          </span>
           <input
-            className={styles.forinput}
             type="password"
-            id="password"
-            name="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
+          <label>Password</label>
         </div>
-        <button type="submit" className={styles.authButton}>
+        <label className={styles.startTermsLabel}>
+          <input
+            type="checkbox"
+            required
+            onChange={(e) => setTermsConditions(e.target.checked)}
+          />{" "}
+          I agree to the terms & conditions
+        </label>
+        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        <button type="submit" className={styles.startAuthButton}>
           Register
         </button>
       </form>
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-      {successMessage && <p className={styles.success}>{successMessage}</p>}
-      <p className={styles.toggleText}>
-        Already have an account? <span onClick={toggleForm}>Login here</span>
+      <p className={styles.startSwitchForm}>
+        Already have an account?{" "}
+        <span onClick={toggleForm} className={styles.startSwitchLink}>
+          Login
+        </span>
       </p>
     </div>
   );

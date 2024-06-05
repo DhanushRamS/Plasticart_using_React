@@ -1,19 +1,9 @@
 //Header.js
 import React, { useState } from "react";
 // import "./style.css";
-import LoginForm from "./LoginForm";
 import styles from "./Vendor.module.css";
 
 const Header = () => {
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
-
-  const openLoginForm = () => {
-    setIsLoginFormOpen(true);
-  };
-
-  const closeLoginForm = () => {
-    setIsLoginFormOpen(false);
-  };
 
   return (
     <>
@@ -32,18 +22,9 @@ const Header = () => {
             <li className="hidden lg:block mr-4">
               <a href="#">Contact Us</a>
             </li>
-            <li>
-              <button
-                className="bg-blue-500 p-3 text-white hover:bg-blue-700"
-                onClick={openLoginForm}
-              >
-                Login
-              </button>
-            </li>
           </ul>
         </nav>
       </header>
-      {isLoginFormOpen && <LoginForm onClose={closeLoginForm} />}
     </>
   );
 };

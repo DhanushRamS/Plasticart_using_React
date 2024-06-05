@@ -1,28 +1,40 @@
-.admin-container {
-    padding: 20px;
-  }
+/* New tab styling */
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
+.tab.active {
+  background-color: #1c313a;
+  color: #fff;
+}
 
-  th,
-  td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
+.tab:hover {
+  background-color: #ddd;
+}
 
-  th {
-    background-color: #f4f4f4;
-  }
+.tab-content {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .error-message {
-    color: red;
-  }
+.pickup-list ul {
+  list-style: none;
+}
 
-  .success-message {
-    color: green;
-  }
+.pickup-list li {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.pickup-list li img {
+  max-width: 100px;
+  margin-right: 20px;
+}

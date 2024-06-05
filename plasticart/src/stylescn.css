@@ -1,3 +1,5 @@
+/*
+
 *{
     padding: 0px;
     margin: 0px;
@@ -8,18 +10,18 @@ html, body{
     background-color: rgb(16, 16, 16);
     font-family: 'Segoe UI Light';
     color: #f1f1f1;
-}
+} */
 
-.camera-video{
+/* .camera-video{
     width: 100%;
     display: flex;
     /* border: 1px solid red; */
-    flex-direction: column;
+    /* flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+}  */
 
-video{
+/* video{
     margin: 10px 0px;
 }
 
@@ -51,21 +53,21 @@ button:hover{
     display: flex;
     overflow-x: scroll;
     padding: 3px 1.5px;
-}
+} */
 
 /* Width */
-.camera-snapshot::-webkit-scrollbar{
+/* .camera-snapshot::-webkit-scrollbar{
     height: 5px;
-}
+} */
 
 /* Track */
-.camera-snapshot::-webkit-scrollbar-track{
+/* .camera-snapshot::-webkit-scrollbar-track{
     background: #f1f1f1;
     background: transparent;
-}
+} */
 
 /* Handle */
-.camera-snapshot::-webkit-scrollbar-thumb{
+/* .camera-snapshot::-webkit-scrollbar-thumb{
     background: rgb(187, 187, 187);
     border-radius: 50px;
-}
+} */

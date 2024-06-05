@@ -10,7 +10,7 @@ const VendorNav = () => {
 
   const handleLogout = async () => {
     await signOut(appAuth).then(() => {
-      navigate("/vendor-auth");
+      navigate("/");
     });
   };
 

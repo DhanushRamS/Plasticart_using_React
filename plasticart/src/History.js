@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { appAuth, appFirestore } from "./config";
-import {
-  collection,
-  collectionGroup,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import "./HistoryPage.css"; // Import the CSS file for additional styling
 
-export default function HistoryPage() {
-  const [capturedImages, setCapturedImages] = useState([]);
+export default function History() {
   const [completedPickups, setCompletedPickups] = useState([]);
   const navigate = useNavigate();
+
   const fetchPickups = async () => {
     try {
       const querySnapshot = await getDocs(
@@ -40,14 +34,15 @@ export default function HistoryPage() {
         await fetchPickups();
       }
     });
-  }, []);
+  }, [navigate]);
+
   return (
-    <div className="h-screen w-full items-center mx-auto  flex flex-col bg-gray-800 p-6 lg:p-6 overflow-y-auto">
+    <div className="history-page h-screen w-full items-center mx-auto flex flex-col bg-gray-800 p-6 lg:p-6 overflow-y-auto">
       <div className="flex justify-between space-x-12 items-center mt-3 max-w-6xl mx-auto">
-        <span className="!text-2xl !font-bold !text-white">Upload History</span>
+        <span className="text-2xl font-bold text-white">Upload History</span>
         <button
           type="button"
-          className="text-white !bg-blue-500 hover:bg-blue-600 p-3"
+          className="btn-scanner"
           onClick={() => {
             navigate("/scanner");
           }}
@@ -55,33 +50,43 @@ export default function HistoryPage() {
           Scanner
         </button>
       </div>
-      <div className="w-full mt-4 flex">
-        <div className="">
-          <ul className="flex flex-wrap items-center  gap-2 justify-center w-full">
+      <div className="w-full mt-4 flex justify-center">
+        <div className="w-full">
+          <ul className="flex flex-wrap items-center gap-4 justify-center w-full">
             {completedPickups.map((pickup) => (
               <li
                 key={pickup.id}
-                className="flex flex-col item-start lg:w-1/2 justify-start w-full border-white border-2 rounded-xl p-4"
+                className="pickup-card flex flex-col items-start lg:w-1/2 justify-start w-full border-white border-2 rounded-xl p-4"
               >
                 <div className="flex space-x-3 w-full justify-start items-start text-white">
                   <img
                     src={pickup.data.image}
                     alt="Pickup"
-                    className="w-full lg:w-1/2"
+                    className="pickup-image w-full lg:w-1/2 rounded-lg"
                   />
                   <div className="flex items-start justify-start space-y-3 flex-col w-1/2">
-                    <p>Prediction: {pickup.data.prediction}</p>
-                    <p>Latitude: {pickup.data.latitude}</p>
-                    <p>Longitude: {pickup.data.longitude}</p>
-                    <p>Description: {pickup.data.description}</p>
-                    <p>Quantity: {pickup.data.quantity}</p>
                     <p>
-                      Status:{" "}
+                      <strong>Prediction:</strong> {pickup.data.prediction}
+                    </p>
+                    <p>
+                      <strong>Latitude:</strong> {pickup.data.latitude}
+                    </p>
+                    <p>
+                      <strong>Longitude:</strong> {pickup.data.longitude}
+                    </p>
+                    <p>
+                      <strong>Description:</strong> {pickup.data.description}
+                    </p>
+                    <p>
+                      <strong>Quantity:</strong> {pickup.data.quantity}
+                    </p>
+                    <p>
+                      <strong>Status:</strong>
                       <span
                         className={
-                          pickup.data.status == "pending"
-                            ? "!text-yellow-500"
-                            : "!text-green-500"
+                          pickup.data.status === "pending"
+                            ? "text-yellow-500"
+                            : "text-green-500"
                         }
                       >
                         {pickup.data.status}

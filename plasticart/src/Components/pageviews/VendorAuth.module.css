@@ -1,99 +1,161 @@
 /* VendorAuth.module.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
 .vendorAuthContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #f4f4f4;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  padding: 20px;
+}
 
-  .vendorAuthBox {
-    background: #fff;
-    padding: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    max-width: 400px;
-    width: 100%;
-  }
+.vendorAuthBox {
+  background: white;
+  padding: 2.5rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s, opacity 0.3s;
+  animation: fadeIn 0.6s ease-out;
+}
 
-  .vendorAuthBox h2 {
-    margin-bottom: 1rem;
-    color: #333;
-    text-align: center;
-  }
+.vendorAuthBox h2 {
+  margin-bottom: 1.5rem;
+  color: #162938;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
 
-  .formGroup {
-    margin-bottom: 1rem;
-  }
+.vendorFormGroup {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
 
-  .forlabel {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
+.vendorForlabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #162938;
+  font-weight: 600;
+}
 
-  .forinput {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #000 !important;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: #000 !important;
-  }
-  .tands{
-    display: flex;
-    flex-direction: row;
-    color: #333;
-  }
+.vendorForinput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .terms {
-    display: flex;
-    align-items: center;
-    /* justify-content: center; */
-  }
+.vendorForinput:focus {
+  border: 1px solid #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
 
-  .terms label {
-    margin-left: 4rem;
-  }
+.vendorAuthButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
 
-  .authButton {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
+.vendorAuthButton:hover {
+  background-color: #0056b3;
+}
 
-  .authButton:hover {
-    background-color: #0056b3;
-  }
+.vendorAuthButton:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6);
+}
 
-  .error {
-    color: red;
-    text-align: center;
-  }
+.vendorError {
+  color: red;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
 
-  .success {
-    color: green;
-    text-align: center;
-  }
+.vendorSuccess {
+  color: green;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
 
-  .toggleText {
-    margin-top: 1rem;
-    text-align: center;
-    color: #555;
-    font-size: small;
-  }
+.vendorToggleText {
+  margin-top: 1.5rem;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
 
-  .toggleText span {
-    color: #007bff;
-    cursor: pointer;
-  }
+.vendorToggleText span {
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
 
-  .toggleText span:hover {
-    text-decoration: underline;
+.vendorToggleText span:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* VendorAuth.module.css */
+.vendorAuthContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f4f4;
+  position: relative;
+}
+
+.vendorCloseButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  background: black;
+  font-size: 2em;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
