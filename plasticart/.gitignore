@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 /push-notifications-server
 /build
+# Local Netlify folder
+.netlify

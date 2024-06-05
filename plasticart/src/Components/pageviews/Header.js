@@ -1,5 +1,5 @@
 //Header.js
-import React, { useState } from "react";
+import React from "react";
 // import "./style.css";
 import styles from "./Vendor.module.css";
 

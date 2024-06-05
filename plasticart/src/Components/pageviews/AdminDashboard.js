@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "./AdminDashboard.module.css";
 import {
   collectionGroup,
   doc,
@@ -11,13 +9,13 @@ import {
 } from "firebase/firestore";
 import { appAuth, appFirestore } from "../../config";
 import venStyles from "./Vendor.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
 const AdminDashboard = () => {
   const [completedPickups, setCompletedPickups] = useState([]);
   const [pointsAssignedPickups, setPointsAssignedPickups] = useState([]);
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   const [activeTab, setActiveTab] = useState("completed");
   const [openDropdown, setOpenDropdown] = useState(false);
   const navigate = useNavigate();

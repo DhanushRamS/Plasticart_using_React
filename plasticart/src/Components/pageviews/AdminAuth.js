@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import AdminLoginForm from "./AdminLoginForm";
 import AdminRegisterForm from "./AdminRegisterForm";
-import { useNavigate } from "react-router-dom";
 import styles from "./Start.module.css";
 
 const AdminAuth = ({ onClose, onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);

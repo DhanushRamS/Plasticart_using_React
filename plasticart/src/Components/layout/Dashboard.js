@@ -3,13 +3,11 @@ import VendorNav from "../pageviews/VendorNav";
 import "../pageviews/dashboard.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  collection,
   collectionGroup,
   doc,
   getDocs,
   query,
   setDoc,
-  onSnapshot,
 } from "firebase/firestore";
 import { appAuth, appFirestore } from "../../config";
 import { requestForToken, onMessageListener } from "../../config";
@@ -114,23 +112,6 @@ const Dashboard = ({ email }) => {
   const handleNavigate = (latitude, longitude) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     window.open(url, "_blank");
-  };
-
-  const handleClearData = () => {
-    setAssignedPickups([]);
-    setCompletedPickups([]);
-    setNotifications([]);
-    localStorage.removeItem(`assignedPickups_${email}`);
-    localStorage.removeItem(`completedPickups_${email}`);
-    localStorage.removeItem(`notifications_${email}`);
-  };
-
-  const formatTime = (timestamp) => {
-    if (!timestamp || !timestamp.seconds) {
-      return "No time available";
-    }
-    const date = new Date(timestamp.seconds * 1000);
-    return date.toLocaleTimeString();
   };
 
   return (

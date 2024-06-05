@@ -3,7 +3,6 @@ import Header from "./Header";
 import Main from "./Main";
 import AboutUs from "./AboutUs";
 import Popup from "./Popup";
-import Icon from "./Icon";
 import "./style.css";
 
 const Home = () => {

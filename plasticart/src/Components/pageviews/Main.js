@@ -1,6 +1,5 @@
 // Main Content component
 import React from "react";
-import { IconContext } from "react-icons";
 import fog_1 from "../img/fog_1.png";
 import fog_2 from "../img/fog_2.png";
 import fog_3 from "../img/fog_3.png";
