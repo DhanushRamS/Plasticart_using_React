@@ -3,3 +3,4 @@ flask-cors
 torchvision
 Pillow
 gunicorn
+waitress
