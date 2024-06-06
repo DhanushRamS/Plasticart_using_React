@@ -1,58 +1,109 @@
-/* HistoryPage.css */
-
 /* Container Styling */
 .history-page {
-    background-color: #1a202c;
-    color: #e2e8f0;
-    font-family: 'Arial', sans-serif;
-  }
+  background-color: #1a202c;
+  color: #e2e8f0;
+  font-family: 'Arial', sans-serif;
+  padding: 1rem;
+}
 
-  /* Button Styling */
-  .btn-scanner {
-    background-color: #4a90e2;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
+.history-page .flex {
+  flex-wrap: wrap;
+}
 
-  .btn-scanner:hover {
-    background-color: #357abd;
-  }
+.history-page .space-x-12 {
+  justify-content: space-between;
+}
 
-  /* Pickup Card Styling */
+/* Button Styling */
+.btn-scanner {
+  background-color: #4a90e2;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-scanner:hover {
+  background-color: #357abd;
+}
+
+/* Pickup Card Styling */
+.pickup-card {
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  width: 100%;
+  max-width: 48%;
+}
+
+.pickup-card:hover {
+  transform: scale(1.02);
+}
+
+.pickup-image {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.pickup-card p {
+  margin: 5px 0;
+}
+
+.pickup-card strong {
+  color: #4a90e2;
+}
+
+/* Status Text Colors */
+.text-yellow-500 {
+  color: #eab308;
+}
+
+.text-green-500 {
+  color: #10b981;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
   .pickup-card {
-    background-color: #2d3748;
-    border: 1px solid #4a5568;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-page {
+    padding: 0.5rem;
   }
 
-  .pickup-card:hover {
-    transform: scale(1.02);
+  .btn-scanner {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .pickup-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-scanner {
+    width: 100%;
+    text-align: center;
+  }
+
+  .pickup-card {
+    flex-direction: column;
+    padding: 0.5rem;
   }
 
   .pickup-image {
-    border-radius: 8px;
+    width: 100%;
   }
 
-  /* Text Styling */
-  .pickup-card p {
-    margin: 5px 0;
+  .pickup-card .flex {
+    flex-direction: column;
   }
-
-  .pickup-card strong {
-    color: #4a90e2;
-  }
-
-  /* Status Text Colors */
-  .text-yellow-500 {
-    color: #eab308;
-  }
-
-  .text-green-500 {
-    color: #10b981;
-  }
+}

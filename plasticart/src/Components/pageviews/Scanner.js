@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Stylescn.module.css";
@@ -42,45 +42,10 @@ function Scanner({ onCaptureComplete }) {
   const [currentCapture, setCurrentCapture] = useState(null);
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const videoRef = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [allVendors, setAllVendors] = useState([]);
   const { state } = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const setupCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { exact: "environment" },
-          },
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (error) {
-        if (error.name === "NotAllowedError") {
-          console.error("Permissions issue: ", error.message);
-        } else if (error.name === "NotFoundError") {
-          console.error("No camera found: ", error.message);
-        } else if (error.name === "NotReadableError") {
-          console.error("Camera is already in use: ", error.message);
-        } else {
-          console.error("Error accessing camera: ", error.message);
-        }
-      }
-    };
-
-    setupCamera();
-
-    return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const tracks = videoRef.current.srcObject.getTracks();
-        tracks.forEach((track) => track.stop());
-      }
-    };
-  }, []);
 
   const fetchImages = async () => {
     try {
@@ -129,59 +94,56 @@ function Scanner({ onCaptureComplete }) {
     localStorage.setItem("capturedImages", JSON.stringify(capturedImages));
   }, [capturedImages]);
 
-  const handleCaptureClick = async () => {
-    const video = videoRef.current;
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-    canvas.width = 280;
-    canvas.height = 200;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const imageData = reader.result;
 
-    context.drawImage(video, 0, 0, 280, 200);
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
 
-    const imageData = canvas.toDataURL("image/jpeg");
-    const blobData = dataURItoBlob(imageData);
-    const file = new File([blobData], "image.jpg", { type: "image/jpeg" });
+          const formData = new FormData();
+          formData.append("image", file);
+          formData.append("lat", latitude);
+          formData.append("long", longitude);
 
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
+          try {
+            const response = await axios({
+              method: "post",
+              url: "http://127.0.0.1:4000/upload",
+              data: formData,
+              headers: { "Content-Type": "multipart/form-data" },
+            });
 
-        const formData = new FormData();
-        formData.append("image", blobData);
-        formData.append("lat", latitude);
-        formData.append("long", longitude);
+            const data = response.data;
+            const vendors = await getVendors();
+            const vendor = findNearestVendor(latitude, longitude, vendors);
+            setCurrentCapture({
+              imageUploaded: file,
+              image: imageData,
+              blob: file,
+              latitude: latitude,
+              vendor: vendor.data.email,
+              longitude: longitude,
+              prediction: data.prediction,
+            });
 
-        try {
-          const response = await axios({
-            method: "post",
-            url: "http://127.0.0.1:4000/upload",
-            data: formData,
-            headers: { "Content-Type": "multipart/form-data" },
-          });
-
-          const data = response.data;
-          const vendors = await getVendors();
-          const vendor = findNearestVendor(latitude, longitude, vendors);
-          setCurrentCapture({
-            imageUploaded: file,
-            image: imageData,
-            blob: blobData,
-            latitude: latitude,
-            vendor: vendor.data.email,
-            longitude: longitude,
-            prediction: data.prediction,
-          });
-
-          setShowModal(true);
-        } catch (error) {
-          console.error("Error uploading image:", error);
+            setShowModal(true);
+          } catch (error) {
+            console.error("Error uploading image:", error);
+          }
+        },
+        (error) => {
+          console.error("Error getting geolocation:", error);
         }
-      },
-      (error) => {
-        console.error("Error getting geolocation:", error);
-      }
-    );
+      );
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const handleDeleteCapture = () => {
@@ -237,19 +199,6 @@ function Scanner({ onCaptureComplete }) {
     } catch (error) {
       console.error("Error uploading image:", error);
     }
-  };
-
-  const dataURItoBlob = (dataURI) => {
-    let byteString =
-      dataURI.split(",")[0].indexOf("base64") >= 0
-        ? atob(dataURI.split(",")[1])
-        : unescape(dataURI.split(",")[1]);
-    const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ia], { type: mimeString });
   };
 
   const saveData = async (data) => {
@@ -384,11 +333,13 @@ function Scanner({ onCaptureComplete }) {
       <div className={styles.scannerContent}>
         <div className={styles.scannerVideoContainer}>
           <h2>Hello User, Please Scan your plastic ↓</h2>
-          <video ref={videoRef} width="500" height="340" muted autoPlay />
-          <button
-            className={styles.scannerCaptureButton}
-            onClick={handleCaptureClick}
-          ></button>
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleImageChange}
+            className={styles.cameraInput}
+          />
         </div>
         <div className={styles.scannerSnapshotContainer}>
           <h2>Current Upload History:</h2>

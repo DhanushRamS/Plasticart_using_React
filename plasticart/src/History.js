@@ -56,15 +56,15 @@ export default function History() {
             {completedPickups.map((pickup) => (
               <li
                 key={pickup.id}
-                className="pickup-card flex flex-col items-start lg:w-1/2 justify-start w-full border-white border-2 rounded-xl p-4"
+                className="pickup-card flex flex-col items-start justify-start w-full border-white border-2 rounded-xl p-4"
               >
-                <div className="flex space-x-3 w-full justify-start items-start text-white">
+                <div className="flex flex-wrap space-x-3 w-full justify-start items-start text-white">
                   <img
                     src={pickup.data.image}
                     alt="Pickup"
                     className="pickup-image w-full lg:w-1/2 rounded-lg"
                   />
-                  <div className="flex items-start justify-start space-y-3 flex-col w-1/2">
+                  <div className="flex items-start justify-start space-y-3 flex-col w-full lg:w-1/2">
                     <p>
                       <strong>Prediction:</strong> {pickup.data.prediction}
                     </p>
