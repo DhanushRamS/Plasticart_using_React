@@ -11,10 +11,6 @@ CORS(app, resources={r"/upload": {"origins": "http://localhost:3000"}})
 def hello():
     return "Hello World!"
 
-@app.route('/api/upload', methods=['GET'])
-def hello_world():
-    return "Hello World!"
-
 @app.route("/upload", methods=["POST"])
 def upload_image():
     try:

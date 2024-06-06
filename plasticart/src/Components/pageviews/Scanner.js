@@ -157,23 +157,8 @@ function Scanner({ onCaptureComplete }) {
     if (!currentCapture) return;
 
     try {
-      const formData = new FormData();
-      formData.append("image", currentCapture.blob);
-      formData.append("lat", currentCapture.latitude);
-      formData.append("long", currentCapture.longitude);
-      formData.append("email", appAuth.currentUser?.email);
-      formData.append("description", description);
-      formData.append("quantity", quantity);
 
-
-      const response = await axios({
-        method: "post",
-        url: "https://plasticart-using-react.onrender.com/upload",
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      if (response.statusText === "OK") {
-        const capturedData = {
+      const capturedData = {
           userId: appAuth.currentUser?.uid,
           image: currentCapture.image,
           prediction: currentCapture.prediction,
@@ -194,19 +179,27 @@ function Scanner({ onCaptureComplete }) {
 
         await saveData(capturedData);
         onCaptureComplete();
-      } else {
-        console.log("Response Failed");
-      }
-    } catch (error) {
+      }catch (error) {
       console.error("Error uploading image:", error);
     }
   };
 
+  const getTime = (prefix) => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timestamp = `${year}${month}${day}_${hours}${minutes}${seconds}`;
+    return `${hours+'_'+minutes+'_'+seconds}`
+  };
+
+
   const saveData = async (data) => {
     try {
-      const storagePath = `PICKUP/${generateKeys(5)}/${
-        appAuth.currentUser?.email
-      }`;
+      const storagePath = `PICKUP/${generateKeys(5)}/${appAuth.currentUser?.email,'_',getTime()}`;
 
       const storageRef = ref(appStorage, storagePath);
 
