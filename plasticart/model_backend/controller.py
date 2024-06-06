@@ -205,4 +205,11 @@ def health():
     memory_usage = psutil.virtual_memory()._asdict()
     return jsonify(memory_usage)
 
+@app.after_request
+def handle_options(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+    return response
+
 # Do not include app.run() here, as Gunicorn will handle starting the server
