@@ -158,11 +158,12 @@
 
 from flask import Flask, request, jsonify
 import os
+import psutil
 from predictor import predict_external_image
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/upload": {"origins": ["https://plasticart-using-react.vercel.app","*"]}})
+CORS(app, resources={r"/upload": {"origins": ["https://plasticart-using-react.vercel.app"]}})
 
 @app.route("/")
 def hello():
@@ -199,7 +200,9 @@ def upload_image():
         print(e)
         return jsonify(error=str(e)), 500
 
-# Remove the app.run block
-# if __name__ == '__main__':
-#     port = int(os.environ.get("PORT", 5000))
-#     app.run(debug=True, host="0.0.0.0", port=port)
+@app.route("/health")
+def health():
+    memory_usage = psutil.virtual_memory()._asdict()
+    return jsonify(memory_usage)
+
+# Do not include app.run() here, as Gunicorn will handle starting the server

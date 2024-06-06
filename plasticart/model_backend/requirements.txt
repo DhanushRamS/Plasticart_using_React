@@ -4,3 +4,4 @@ torchvision
 Pillow
 gunicorn
 waitress
+psutil
