@@ -46,7 +46,7 @@
 
 .pickup-image {
   border-radius: 8px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .pickup-card p {
@@ -88,22 +88,4 @@
   }
 }
 
-@media (max-width: 480px) {
-  .btn-scanner {
-    width: 100%;
-    text-align: center;
-  }
 
-  .pickup-card {
-    flex-direction: column;
-    padding: 0.5rem;
-  }
-
-  .pickup-image {
-    width: 100%;
-  }
-
-  .pickup-card .flex {
-    flex-direction: column;
-  }
-}
