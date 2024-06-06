@@ -4,7 +4,8 @@ from predictor import predict_external_image
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
+
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/")
 def hello():
@@ -23,6 +24,7 @@ def upload_image():
             temp_path = "temp_image.jpg"
             uploaded_file.save(temp_path)
 
+            print("Going to predict")
             # Get the prediction
             prediction = predict_external_image(temp_path)
 
