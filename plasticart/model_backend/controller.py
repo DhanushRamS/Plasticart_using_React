@@ -169,12 +169,14 @@ CORS(app, resources={r"/upload": {"origins": "https://plasticart-using-react.ver
 def hello():
     return "Hello World!"
 
-@app.route("/upload", methods=["GET"])
+@app.route("/upload", methods=["POST"])
 def upload_image():
     try:
+        print("Got image lesgooooooooo")
         uploaded_file = request.files["image"]
         if uploaded_file.filename != "":
             # Save the uploaded file temporarily (you can choose a different location)
+            print("uploaded files",request.files)
             temp_path = "temp_image.jpg"
             uploaded_file.save(temp_path)
 

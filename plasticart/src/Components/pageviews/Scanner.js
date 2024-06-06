@@ -113,14 +113,8 @@ function Scanner({ onCaptureComplete }) {
 
           try {
             const response = await axios({
-              method: "get",
+              method: "post",
               url: "https://plasticart-using-react.onrender.com/upload",
-
-
-
-
-
-
 
               // url: "http://127.0.0.1:4000/upload",
               data: formData,
