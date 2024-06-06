@@ -4,7 +4,7 @@ services:
     env: python
     region: oregon
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -w 2 -k gevent -b 0.0.0.0:$PORT controller:app
+    startCommand: gunicorn -w 1 -k gevent -b 0.0.0.0:$PORT controller:app
     envVars:
       - key: PORT
         value: 10000

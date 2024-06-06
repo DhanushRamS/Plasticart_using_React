@@ -160,10 +160,8 @@ from flask import Flask, request, jsonify
 import os
 import psutil
 from predictor import predict_external_image
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/upload": {"origins": "*"}})
 
 @app.route("/")
 def hello():
@@ -206,10 +204,10 @@ def health():
     return jsonify(memory_usage)
 
 @app.after_request
-def handle_options(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
     return response
 
 # Do not include app.run() here, as Gunicorn will handle starting the server
