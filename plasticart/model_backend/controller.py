@@ -163,7 +163,7 @@ from predictor import predict_external_image
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/upload": {"origins": "https://plasticart-using-react.vercel.app"}})
+CORS(app, resources={r"/*": {"origins": "https://plasticart-using-react.vercel.app"}})
 
 @app.route("/")
 def hello():
@@ -176,7 +176,7 @@ def upload_image():
         uploaded_file = request.files["image"]
         if uploaded_file.filename != "":
             # Save the uploaded file temporarily (you can choose a different location)
-            print("uploaded files",request.files)
+            print("uploaded files", request.files)
             temp_path = "temp_image.jpg"
             uploaded_file.save(temp_path)
 
@@ -208,7 +208,7 @@ def health():
     return jsonify(memory_usage)
 
 @app.after_request
-def handle_options(response):
+def after_request(response):
     response.headers["Access-Control-Allow-Origin"] = "https://plasticart-using-react.vercel.app"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
