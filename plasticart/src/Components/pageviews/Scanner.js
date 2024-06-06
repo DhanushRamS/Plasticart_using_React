@@ -114,7 +114,8 @@ function Scanner({ onCaptureComplete }) {
           try {
             const response = await axios({
               method: "post",
-              url: "https://plasticart-using-react.onrender.com/upload",
+              // url: "https://plasticart-using-react.onrender.com/upload",
+              url: "http://127.0.0.1:4000/upload",
               data: formData,
               headers: { "Content-Type": "multipart/form-data" },
             });
@@ -157,29 +158,28 @@ function Scanner({ onCaptureComplete }) {
     if (!currentCapture) return;
 
     try {
-
       const capturedData = {
-          userId: appAuth.currentUser?.uid,
-          image: currentCapture.image,
-          prediction: currentCapture.prediction,
-          latitude: currentCapture.latitude,
-          longitude: currentCapture.longitude,
-          vendor: currentCapture.vendor,
-          date: new Date().toISOString(),
-          description: description,
-          quantity: quantity,
-          email: appAuth.currentUser?.email,
-        };
+        userId: appAuth.currentUser?.uid,
+        image: currentCapture.image,
+        prediction: currentCapture.prediction,
+        latitude: currentCapture.latitude,
+        longitude: currentCapture.longitude,
+        vendor: currentCapture.vendor,
+        date: new Date().toISOString(),
+        description: description,
+        quantity: quantity,
+        email: appAuth.currentUser?.email,
+      };
 
-        setCapturedImages((prevImages) => [...prevImages, capturedData]);
-        setShowModal(false);
-        setCurrentCapture(null);
-        setDescription("");
-        setQuantity(1);
+      setCapturedImages((prevImages) => [...prevImages, capturedData]);
+      setShowModal(false);
+      setCurrentCapture(null);
+      setDescription("");
+      setQuantity(1);
 
-        await saveData(capturedData);
-        onCaptureComplete();
-      }catch (error) {
+      await saveData(capturedData);
+      onCaptureComplete();
+    } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
@@ -187,19 +187,20 @@ function Scanner({ onCaptureComplete }) {
   const getTime = (prefix) => {
     const now = new Date();
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
     const timestamp = `${year}${month}${day}_${hours}${minutes}${seconds}`;
-    return `${hours+'_'+minutes+'_'+seconds}`
+    return `${hours + "_" + minutes + "_" + seconds}`;
   };
-
 
   const saveData = async (data) => {
     try {
-      const storagePath = `PICKUP/${generateKeys(5)}/${appAuth.currentUser?.email,'_',getTime()}`;
+      const storagePath = `PICKUP/${generateKeys(5)}/${
+        (appAuth.currentUser?.email, "_", getTime())
+      }`;
 
       const storageRef = ref(appStorage, storagePath);
 
