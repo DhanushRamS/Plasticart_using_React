@@ -163,7 +163,7 @@ from predictor import predict_external_image
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/upload": {"origins": ["https://plasticart-using-react.vercel.app"]}})
+CORS(app, resources={r"/upload": {"origins": "*"}})
 
 @app.route("/")
 def hello():
