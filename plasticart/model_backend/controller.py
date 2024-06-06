@@ -1,21 +1,15 @@
-# app.py
-from flask import Flask, request, jsonify
 import os
-
+from flask import Flask, request, jsonify
 from predictor import predict_external_image
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 cors = CORS(app)
 
-
-@cross_origin
 @app.route("/")
 def hello():
     return "Hello World!"
 
-
-@cross_origin
 @app.route("/upload", methods=["POST"])
 def upload_image():
     try:
@@ -25,8 +19,8 @@ def upload_image():
             temp_path = "temp_image.jpg"
             uploaded_file.save(temp_path)
 
-            # Get the file size
-            prediction = predict_external_image(temp_path)  # in bytes
+            # Get the prediction
+            prediction = predict_external_image(temp_path)
 
             # Clean up: remove the temporary file
             os.remove(temp_path)
@@ -45,7 +39,6 @@ def upload_image():
     except Exception as e:
         print(e)
         return f"Error: {str(e)}"
-
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=4000)

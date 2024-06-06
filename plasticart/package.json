@@ -39,7 +39,8 @@
   },
   "homepage": "https://DhanushRamS.github.io",
   "scripts": {
-    "start": "craco start",
+    "start": "gunicorn -w 2 -b 0.0.0.0:$PORT app:app",
+    "start-frontend": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
