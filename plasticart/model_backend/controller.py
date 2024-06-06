@@ -10,6 +10,10 @@ cors = CORS(app)
 def hello():
     return "Hello World!"
 
+@app.route('/api/upload', methods=['GET'])
+def hello_world():
+    return "Hello World!"
+
 @app.route("/upload", methods=["POST"])
 def upload_image():
     try:
