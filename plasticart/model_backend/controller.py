@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/upload": {"origins": "http://localhost:3000"}})
 
 @app.route("/")
 def hello():
