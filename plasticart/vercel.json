@@ -6,12 +6,12 @@
         "use": "@vercel/python"
       },
       {
-        "src": "src/**/*",
+        "src": "package.json",
         "use": "@vercel/static-build"
       }
     ],
     "routes": [
       { "src": "/api/(.*)", "dest": "/model_backend/controller.py" },
-      { "src": "/(.*)", "dest": "/src/$1" }
+      { "src": "/(.*)", "dest": "/build/$1" }
     ]
   }
