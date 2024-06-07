@@ -186,7 +186,7 @@ const Dashboard = ({ email }) => {
                         <p>Status: {pickup.data.status}</p>
                       </div>
                     </div>
-                    <div className="w-full flex justify-end items-center space-x-3 mt-4">
+                    <div className="w-full flex justify-end items-center mt-4">
                       <button
                         onClick={() =>
                           handleNavigate(

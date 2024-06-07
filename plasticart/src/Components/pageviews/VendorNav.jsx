@@ -19,14 +19,6 @@ const VendorNav = () => {
       <h2 className={styles.logo}>PlastiCart</h2>
       <nav>
         <ul className={styles.navigation}>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <Link className="link" onClick={() => setOpenDropdown(false)}>
-              Profile
-            </Link>
-          </li>
           <li className={styles.hamburger}>
             <a href="#" onClick={() => setOpenDropdown(!openDropdown)}>
               <div className={styles.bar}></div>
@@ -35,7 +27,7 @@ const VendorNav = () => {
             </a>
             {openDropdown && (
               <ul className={styles.dropdownMenu}>
-                <li>
+                <li className={styles.dropdownItem}>
                   <button
                     onClick={handleLogout}
                     className={styles.logoutButton}

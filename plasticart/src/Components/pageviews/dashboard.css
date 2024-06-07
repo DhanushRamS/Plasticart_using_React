@@ -130,6 +130,9 @@ button:active {
 button.navigate {
   background-color: var(--purple-color);
   color: white;
+  padding: 10px 10px;
+  width: 75%;
+  margin-block: 5px;
 }
 
 button.navigate:hover {
@@ -139,6 +142,9 @@ button.navigate:hover {
 button.complete {
   background-color: var(--green-color);
   color: white;
+  padding: 10px 10px;
+  width: 75%;
+  margin-block: 5px;
 }
 
 button.complete:hover {

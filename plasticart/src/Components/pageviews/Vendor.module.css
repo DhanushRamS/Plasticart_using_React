@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;800&display=swap");
 
-.vendorNotification * {
+:root {
+  --black-color: #000;
+  --gray-color: #495057;
+  --light-gray-color: rgba(115, 115, 115, 0.7);
+  --dark-background: #343a40;
+  --white-color: #fff;
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -34,7 +42,7 @@
 
 .header ul a {
   text-decoration: none;
-  color: black;
+  color: var(--black-color);
   padding: 0 1.5rem;
   text-transform: uppercase;
   font-weight: 300;
@@ -52,7 +60,7 @@
   height: 37px;
   display: flex;
   border-radius: 100%;
-  background-color: rgba(115, 115, 115, 0.7);
+  background-color: var(--light-gray-color);
   justify-content: center;
   align-items: center;
   -webkit-backdrop-filter: blur(10px);
@@ -63,8 +71,8 @@
   position: absolute;
   width: 52%;
   height: 3.34px;
-  background-color: black;
-  color: black;
+  background-color: var(--black-color);
+  color: var(--black-color);
   border-radius: 2px;
   z-index: 1;
   margin-left: 0px;
@@ -92,14 +100,14 @@
 
 .logo {
   font-size: 2em;
-  color: black;
+  color: var(--black-color);
   user-select: none;
 }
 
 .navigation a {
   position: relative;
   font-size: 1.1em;
-  color: black;
+  color: var(--black-color);
   text-decoration: none;
   font-weight: 500;
   margin-left: 40px;
@@ -113,7 +121,7 @@
   bottom: -6px;
   width: 100%;
   height: 3px;
-  background: black;
+  background: var(--black-color);
   border-radius: 5px;
   transform-origin: right;
   transform: scaleX(0);
@@ -131,12 +139,12 @@
   width: 130px;
   height: 50px;
   background: transparent;
-  border: 2px solid black;
+  border: 2px solid var(--black-color);
   outline: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.1em;
-  color: black;
+  color: var(--black-color);
   font-weight: 500;
   margin-left: 40px;
   transition: .5s;
@@ -170,31 +178,58 @@
   position: absolute;
   top: 40px;
   right: 0;
-  background-color: #343a40;
+  background-color: var(--dark-background);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
+  z-index: 1000;
 }
 
-.dropdownMenu li {
+.dropdownItem {
   list-style: none;
 }
 
 .logoutButton {
-    background: black;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    text-align: left;
-    padding: 10px 20px;
-    width: 87px;
-    cursor: pointer;
-    right: 80px;
-    font-size: 1rem;
-    position: fixed;
-    z-index: 9999999999999999999;
+  background: var(--black-color);
+  border: none;
+  color: var(--white-color);
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px 20px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .logoutButton:hover {
-  background-color: #495057;
+  background-color: var(--gray-color);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 20px 20px;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .dropdownMenu {
+    width: 100%;
+    top: 50px;
+  }
+
+  .dropdownItem {
+    padding: 10px 20px;
+  }
+
+  .dropdownItem a,
+  .dropdownItem .logoutButton {
+    width: 100%;
+    display: block;
+  }
 }
