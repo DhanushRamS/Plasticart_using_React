@@ -171,7 +171,7 @@ const Dashboard = ({ email }) => {
                     key={pickup.id}
                     className="flex flex-col item-start justify-start w-full"
                   >
-                    <div className="flex space-x-3">
+                    <div className="flex flex-wrap space-x-3">
                       <img
                         src={pickup.data.image}
                         alt="Pickup"
@@ -194,13 +194,13 @@ const Dashboard = ({ email }) => {
                             pickup.data.longitude
                           )
                         }
-                        className="text-base font-light hover:underline"
+                        className="text-base font-light hover:underline navigate"
                       >
                         Navigate
                       </button>
                       <button
                         onClick={() => handleMarkAsDone(pickup)}
-                        className="text-base font-light hover:underline"
+                        className="text-base font-light hover:underline complete"
                       >
                         Complete
                       </button>
@@ -219,7 +219,7 @@ const Dashboard = ({ email }) => {
                     key={pickup.id}
                     className="flex flex-col item-start justify-start w-full"
                   >
-                    <div className="flex space-x-3">
+                    <div className="flex flex-wrap space-x-3">
                       <img
                         src={pickup.data.image}
                         alt="Pickup"
