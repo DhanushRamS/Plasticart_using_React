@@ -168,7 +168,7 @@ const AdminDashboard = () => {
                         onClick={() =>
                           handleAssignPoints(i, pickup.data.email, pickup.id)
                         }
-                        className="text-base font-light bg-gray-500 hover:bg-gray-800 p-3 text-white w-1/2 mt-[-20px]"
+                        className="text-base font-light bg-gray-500 hover:bg-gray-800 p-3 text-white w-1/2 mt-[20px]"
                       >
                         Assign Point
                       </button>
