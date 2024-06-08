@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                         alt="Pickup"
                         className="pickup-image"
                       />
-                      <div className="flex items-start justify-start space-y-3 flex-col">
+                      <div className="flex items-start justify-start space-y-3 flex-col mt-4">
                         <p>User: {pickup.data.email}</p>
                         <p>Prediction: {pickup.data.prediction}</p>
                         <p>Latitude: {pickup.data.latitude}</p>
@@ -193,7 +193,7 @@ const AdminDashboard = () => {
                         alt="Pickup"
                         className="pickup-image"
                       />
-                      <div className="flex items-start justify-start space-y-3 flex-col">
+                      <div className="flex items-start justify-start space-y-3 flex-col mt-4">
                         <p>User: {pickup.data.email}</p>
                         <p>Prediction: {pickup.data.prediction}</p>
                         <p>Latitude: {pickup.data.latitude}</p>
