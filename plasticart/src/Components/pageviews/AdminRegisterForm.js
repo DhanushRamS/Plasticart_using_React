@@ -90,6 +90,7 @@ const AdminRegisterForm = ({ toggleForm }) => {
             type="checkbox"
             required
             onChange={(e) => setTermsConditions(e.target.checked)}
+            className={styles.checkbox}
           />{" "}
           I agree to the terms & conditions
         </label>

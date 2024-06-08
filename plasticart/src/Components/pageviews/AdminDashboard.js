@@ -99,8 +99,8 @@ const AdminDashboard = () => {
                 <div className={venStyles.bar}></div>
               </a>
               {openDropdown && (
-                <ul>
-                  <li>
+                <ul className={venStyles.dropdownMenu}>
+                  <li className={venStyles.dropdownItem}>
                     <button
                       onClick={handleLogout}
                       className={venStyles.logoutButton}
@@ -114,7 +114,7 @@ const AdminDashboard = () => {
           </ul>
         </nav>
       </header>
-      <div className="dashboard-content">
+      <div className="dashboard-content" style={{ marginTop: "80px" }}>
         <div className="tabs">
           <button
             className={`tab ${activeTab === "completed" ? "active" : ""}`}

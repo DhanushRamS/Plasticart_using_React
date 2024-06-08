@@ -23,15 +23,21 @@
 }
 
 .header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px 100px;
+  padding: 20px 20px; /* Adjusted for responsiveness */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Align items to the left and right */
   align-items: center;
-  z-index: 99;
+  z-index: 1000;
+  background-color: var(--white-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h2 {
+  font-size: 1.5rem;
 }
 
 .header ul {
@@ -52,6 +58,7 @@
 .hamburger {
   padding-left: 1.5rem;
   position: relative;
+  display: flex; /* Ensure the hamburger is displayed */
 }
 
 .hamburger a {
@@ -135,7 +142,7 @@
 
 .btnLoginPopup {
   position: relative;
-  z-index: 1; /* Set a higher z-index for the button */
+  z-index: 1;
   width: 130px;
   height: 50px;
   background: transparent;
@@ -175,18 +182,27 @@
 }
 
 .dropdownMenu {
+  display: none;
   position: absolute;
-  top: 40px;
+  top: 60px;
   right: 0;
   background-color: var(--dark-background);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 10000;
 }
 
-.dropdownItem {
-  list-style: none;
+.dropdownMenu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  padding: 10px 20px;
+}
+
+.dropdownMenu a:hover {
+  background-color: #495057;
 }
 
 .logoutButton {
@@ -207,7 +223,8 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 20px 20px;
+    flex-direction: row;
+    padding: 20px;
   }
 
   .navigation {
@@ -215,21 +232,17 @@
   }
 
   .hamburger {
-    display: block;
+    display: flex;
   }
 
   .dropdownMenu {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    top: 50px;
   }
 
-  .dropdownItem {
-    padding: 10px 20px;
-  }
-
-  .dropdownItem a,
-  .dropdownItem .logoutButton {
+  .dropdownMenu a,
+  .dropdownMenu .logoutButton {
     width: 100%;
-    display: block;
   }
 }

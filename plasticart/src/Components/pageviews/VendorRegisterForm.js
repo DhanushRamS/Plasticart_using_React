@@ -85,14 +85,16 @@ const VendorRegisterForm = ({ toggleForm }) => {
           />
           <label>Password</label>
         </div>
-        <label className={styles.startTermsLabel}>
+        <label className={styles.vendorStartTermsLabel}>
           <input
             type="checkbox"
             required
             onChange={(e) => setTermsConditions(e.target.checked)}
+            className={styles.checkbox}
           />{" "}
           I agree to the terms & conditions
         </label>
+
         {errorMessage && <p className={styles.error}>{errorMessage}</p>}
         <button type="submit" className={styles.startAuthButton}>
           Register

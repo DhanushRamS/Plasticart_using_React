@@ -293,6 +293,10 @@ body {
   color: black;
 }
 
+.checkbox {
+  margin-right: 8px; /* Adjust the value as needed */
+}
+
 @keyframes startFadeInDown {
   0% {
     opacity: 0;
