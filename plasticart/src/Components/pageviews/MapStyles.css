@@ -1,0 +1,21 @@
+.marker {
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+  }
+
+  .marker.complete {
+    background-color: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+  }
+
+  .marker.pending {
+    background-color: #ff4a18;
+    width: 20px;
+    height: 20px;
+  }

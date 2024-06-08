@@ -115,7 +115,6 @@ function Scanner({ onCaptureComplete }) {
             const response = await axios({
               method: "post",
               url: "https://dhanush10.pythonanywhere.com/upload",
-
               // url: "http://127.0.0.1:4000/upload",
               data: formData,
               headers: { "Content-Type": "multipart/form-data" },
@@ -137,10 +136,12 @@ function Scanner({ onCaptureComplete }) {
             setShowModal(true);
           } catch (error) {
             console.error("Error uploading image:", error);
+            alert("Failed to upload image. Please try again later.");
           }
         },
         (error) => {
           console.error("Error getting geolocation:", error);
+          alert("Failed to get geolocation. Please try again later.");
         }
       );
     };

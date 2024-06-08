@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { appAuth, appFirestore } from "../../config";
 import { requestForToken, onMessageListener } from "../../config";
+import { Locations } from "../pageviews/Locations"; // Adjust the path to your Locations component
 
 const Dashboard = ({ email }) => {
   const [assignedPickups, setAssignedPickups] = useState([]);
@@ -132,6 +133,12 @@ const Dashboard = ({ email }) => {
             Assigned Pickups
           </button>
           <button
+            className={`tab ${activeTab === "map" ? "active" : ""}`}
+            onClick={() => setActiveTab("map")}
+          >
+            Map
+          </button>
+          <button
             className={`tab ${activeTab === "completed" ? "active" : ""}`}
             onClick={() => setActiveTab("completed")}
           >
@@ -208,6 +215,13 @@ const Dashboard = ({ email }) => {
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+          {activeTab === "map" && (
+            <div className="map-container">
+              <h2 className="text-2xl font-bold">Map View</h2>
+              <Locations pickups={assignedPickups} />{" "}
+              {/* Pass the assigned pickups to the Locations component */}
             </div>
           )}
           {activeTab === "completed" && (
