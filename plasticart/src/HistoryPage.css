@@ -10,8 +10,9 @@
   flex-wrap: wrap;
 }
 
-.history-page .space-x-12 {
-  justify-content: space-between;
+.history-page .flex-col {
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Button Styling */
@@ -24,6 +25,7 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
+  margin-top: 1rem;
 }
 
 .btn-scanner:hover {
@@ -46,7 +48,6 @@
 
 .pickup-image {
   border-radius: 8px;
-  /* width: 100%; */
 }
 
 .pickup-card p {
@@ -87,5 +88,3 @@
     padding: 1rem;
   }
 }
-
-

@@ -38,7 +38,7 @@ export default function History() {
 
   return (
     <div className="history-page h-screen w-full items-center mx-auto flex flex-col bg-gray-800 p-6 lg:p-6 overflow-y-auto">
-      <div className="flex justify-between space-x-12 items-center mt-3 max-w-6xl mx-auto">
+      <div className="flex flex-col items-center mt-3 max-w-6xl mx-auto">
         <span className="text-2xl font-bold text-white">Upload History</span>
         <button
           type="button"

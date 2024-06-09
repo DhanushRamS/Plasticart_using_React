@@ -184,7 +184,7 @@ const Dashboard = ({ email }) => {
                         alt="Pickup"
                         className="pickup-image"
                       />
-                      <div className="flex items-start justify-start space-y-3 flex-col">
+                      <div className="flex items-start justify-start space-y-3 mt-4 flex-col">
                         <p>Prediction: {pickup.data.prediction}</p>
                         <p>Latitude: {pickup.data.latitude}</p>
                         <p>Longitude: {pickup.data.longitude}</p>
@@ -239,7 +239,7 @@ const Dashboard = ({ email }) => {
                         alt="Pickup"
                         className="pickup-image"
                       />
-                      <div className="flex items-start justify-start space-y-3 flex-col">
+                      <div className="flex items-start justify-start space-y-3 mt-4 flex-col">
                         <p>Prediction: {pickup.data.prediction}</p>
                         <p>Latitude: {pickup.data.latitude}</p>
                         <p>Longitude: {pickup.data.longitude}</p>
