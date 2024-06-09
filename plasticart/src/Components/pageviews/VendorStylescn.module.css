@@ -47,6 +47,31 @@
     z-index: 0;
 }
 
+.loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loadingMessage {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
 @keyframes vendorFloat {
     0%, 100% {
         transform: translateY(0);
@@ -76,20 +101,20 @@
     font-size: 1.5rem;
 }
 
-.vendorScannerHeaderNav {
+.vendorScannerNav {
     display: flex;
-    gap: 20px;
-    margin-left: auto;
+    align-items: center;
 }
 
-.vendorScannerHeaderNav a {
+.vendorScannerNav a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    margin-left: 20px;
     transition: color 0.3s;
 }
 
-.vendorScannerHeaderNav a:hover {
+.vendorScannerNav a:hover {
     color: #ffab40;
 }
 
@@ -141,7 +166,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding-top: 80px;
+    padding-top: 100px; /* Adjusted for header height */
     z-index: 1;
 }
 
@@ -166,26 +191,8 @@
     text-align: center;
 }
 
-.vendorScannerVideoContainer video {
-    width: 100%;
-    border-radius: 10px;
-    border: 3px solid #1c313a;
-    margin-bottom: 10px;
-}
-
-.vendorScannerCaptureButton {
-    width: 60px;
-    height: 60px;
-    background: url('camera-snap-black.svg') no-repeat center center, linear-gradient(45deg, #ff416c, #ff4b2b);
-    background-size: 60%;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.vendorScannerCaptureButton:hover {
-    transform: scale(1.1);
+.vendorScannerFileInput {
+    margin-top: 10px;
 }
 
 /* Snapshot container */
@@ -315,19 +322,22 @@
 @media (max-width: 768px) {
     .vendorScannerHeader {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
-    .vendorScannerHeaderNav {
-        display: none;
+    .vendorScannerNav {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
     }
 
     .vendorHamburger {
-        display: flex;
+        display: none;
     }
 
     .vendorDropdownMenu {
-        display: flex;
+        display: none;
     }
 
     .vendorScannerContent {

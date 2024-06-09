@@ -10,6 +10,8 @@ function VendorScanner() {
   const [showModal, setShowModal] = useState(false);
   const [prediction, setPrediction] = useState(null);
   const [verificationResult, setVerificationResult] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ function VendorScanner() {
 
         navigator.geolocation.getCurrentPosition(
           async (position) => {
+            setIsLoading(true); // Show loading screen
             const { latitude, longitude } = position.coords;
 
             const formData = new FormData();
@@ -41,6 +44,15 @@ function VendorScanner() {
               });
 
               const data = response.data;
+
+              if (data.prediction.toLowerCase() !== "plastic") {
+                setErrorMessage(
+                  "The scanned image is not plastic. Please try again."
+                );
+                setIsLoading(false);
+                return;
+              }
+
               setCapturedImage({
                 image: imageData,
                 prediction: data.prediction,
@@ -49,13 +61,16 @@ function VendorScanner() {
               });
 
               setPrediction(data.prediction);
+              setIsLoading(false); // Hide loading screen
               setShowModal(true);
             } catch (error) {
               console.error("Error uploading image:", error);
+              setIsLoading(false); // Hide loading screen
             }
           },
           (error) => {
             console.error("Error getting geolocation:", error);
+            setIsLoading(false); // Hide loading screen
           }
         );
       };
@@ -67,6 +82,7 @@ function VendorScanner() {
     setShowModal(false);
     setCapturedImage(null);
     setVerificationResult(null);
+    setErrorMessage(null);
   };
 
   const handleVerify = async () => {
@@ -103,6 +119,11 @@ function VendorScanner() {
     <div className={styles.vendorScannerContainer}>
       <header className={styles.vendorScannerHeader}>
         <h1>PlastiCart Scanner</h1>
+        <nav className={styles.vendorScannerNav}>
+          <a href="#" onClick={() => navigate("/vendor-dashboard")}>
+            Dashboard
+          </a>
+        </nav>
       </header>
       <div className={styles.vendorScannerContent}>
         <div className={styles.vendorScannerVideoContainer}>
@@ -115,6 +136,7 @@ function VendorScanner() {
             className={styles.vendorScannerFileInput}
           />
         </div>
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       </div>
       {showModal && (
         <div className={styles.vendorScannerModal}>
@@ -144,6 +166,13 @@ function VendorScanner() {
                 </button>
               </>
             )}
+          </div>
+        </div>
+      )}
+      {isLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingMessage}>
+            Please wait, processing image...
           </div>
         </div>
       )}

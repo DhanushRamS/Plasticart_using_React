@@ -44,6 +44,7 @@ function Scanner({ onCaptureComplete }) {
   const [quantity, setQuantity] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
   const [allVendors, setAllVendors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -104,6 +105,7 @@ function Scanner({ onCaptureComplete }) {
 
       navigator.geolocation.getCurrentPosition(
         async (position) => {
+          setIsLoading(true); // Show loading screen
           const { latitude, longitude } = position.coords;
 
           const formData = new FormData();
@@ -121,6 +123,13 @@ function Scanner({ onCaptureComplete }) {
             });
 
             const data = response.data;
+
+            if (data.prediction.toLowerCase() !== "plastic") {
+              alert("The scanned object is not plastic. Please try again.");
+              setIsLoading(false); // Hide loading screen
+              return;
+            }
+
             const vendors = await getVendors();
             const vendor = findNearestVendor(latitude, longitude, vendors);
             setCurrentCapture({
@@ -133,15 +142,18 @@ function Scanner({ onCaptureComplete }) {
               prediction: data.prediction,
             });
 
+            setIsLoading(false); // Hide loading screen
             setShowModal(true);
           } catch (error) {
             console.error("Error uploading image:", error);
             alert("Failed to upload image. Please try again later.");
+            setIsLoading(false); // Hide loading screen
           }
         },
         (error) => {
           console.error("Error getting geolocation:", error);
           alert("Failed to get geolocation. Please try again later.");
+          setIsLoading(false); // Hide loading screen
         }
       );
     };
@@ -397,6 +409,13 @@ function Scanner({ onCaptureComplete }) {
             >
               Upload
             </button>
+          </div>
+        </div>
+      )}
+      {isLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingMessage}>
+            Please wait, processing image...
           </div>
         </div>
       )}
