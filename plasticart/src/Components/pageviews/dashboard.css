@@ -58,6 +58,7 @@ body {
   background-color: #fff;
   border-top: 2px solid var(--purple-color);
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .tab-content {
