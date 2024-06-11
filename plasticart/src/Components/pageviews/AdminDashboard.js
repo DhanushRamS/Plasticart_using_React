@@ -87,7 +87,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="dashboard container">
+    <div className={`${venStyles.vendorNotification} container`}>
       <header className={venStyles.header}>
         <h2 className="text-xl font-bold">Admin Dashboard</h2>
         <nav>
@@ -139,7 +139,7 @@ const AdminDashboard = () => {
                     key={pickup.id}
                     className="flex flex-col item-start justify-start w-full"
                   >
-                    <div className="flex space-x-3">
+                    <div className="pickup-content">
                       <img
                         src={pickup.data.image}
                         alt="Pickup"
@@ -187,7 +187,7 @@ const AdminDashboard = () => {
                     key={pickup.id}
                     className="flex flex-col item-start justify-start w-full"
                   >
-                    <div className="flex space-x-3">
+                    <div className="pickup-content">
                       <img
                         src={pickup.data.image}
                         alt="Pickup"
