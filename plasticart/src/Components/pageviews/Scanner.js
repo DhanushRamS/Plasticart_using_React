@@ -48,13 +48,37 @@ function Scanner({ onCaptureComplete }) {
   const { state } = useLocation();
   const navigate = useNavigate();
 
+  const isToday = (date) => {
+    const today = new Date();
+    const givenDate = new Date(date);
+    return (
+      today.getDate() === givenDate.getDate() &&
+      today.getMonth() === givenDate.getMonth() &&
+      today.getFullYear() === givenDate.getFullYear()
+    );
+  };
+
   const fetchImages = async () => {
     try {
-      const docRef = doc(appFirestore, "USER", appAuth.currentUser?.email);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserData(docSnap.data());
-        setCurrentPoints(docSnap.data().points || 0); // Set current points from user data
+      const userDocRef = doc(appFirestore, "USER", appAuth.currentUser?.email);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        setUserData(userDocSnap.data());
+        setCurrentPoints(userDocSnap.data().points || 0);
+
+        const pickupsCollectionRef = collection(
+          appFirestore,
+          "USER",
+          appAuth.currentUser?.email,
+          "PICKUP"
+        );
+
+        const querySnapshot = await getDocs(pickupsCollectionRef);
+        const images = querySnapshot.docs
+          .map((doc) => doc.data())
+          .filter((image) => isToday(image.date));
+        setCapturedImages(images);
       } else {
         console.log("No such document!");
       }
@@ -185,14 +209,15 @@ function Scanner({ onCaptureComplete }) {
         email: appAuth.currentUser?.email,
       };
 
+      await saveData(capturedData);
       setCapturedImages((prevImages) => [...prevImages, capturedData]);
       setShowModal(false);
       setCurrentCapture(null);
       setDescription("");
       setQuantity(1);
 
-      await saveData(capturedData);
       onCaptureComplete();
+      await fetchImages(); // Fetch the updated images
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -238,36 +263,32 @@ function Scanner({ onCaptureComplete }) {
         (error) => {
           console.log(error);
         },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (docURL) => {
-            try {
-              await addDoc(
-                collection(
-                  appFirestore,
-                  "USER",
-                  appAuth.currentUser?.email,
-                  "PICKUP"
-                ),
-                {
-                  userId: appAuth.currentUser?.uid,
-                  image: docURL,
-                  prediction: data.prediction,
-                  latitude: `${data.latitude}`,
-                  longitude: `${data.longitude}`,
-                  date: new Date().toISOString(),
-                  description: description,
-                  quantity: quantity,
-                  iSeen: false,
-                  vendor: data.vendor,
-                  email: appAuth.currentUser?.email,
-                  status: "pending",
-                  pointsAssigned: false,
-                }
-              );
-            } catch (error) {
-              console.log(error);
+        async () => {
+          const docURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+          await addDoc(
+            collection(
+              appFirestore,
+              "USER",
+              appAuth.currentUser?.email,
+              "PICKUP"
+            ),
+            {
+              userId: appAuth.currentUser?.uid,
+              image: docURL,
+              prediction: data.prediction,
+              latitude: `${data.latitude}`,
+              longitude: `${data.longitude}`,
+              date: new Date().toISOString(),
+              description: description,
+              quantity: quantity,
+              iSeen: false,
+              vendor: data.vendor,
+              email: appAuth.currentUser?.email,
+              status: "pending",
+              pointsAssigned: false,
             }
-          });
+          );
         }
       );
     } catch (error) {
